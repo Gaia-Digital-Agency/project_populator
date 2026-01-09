@@ -1,0 +1,30 @@
+{
+  "name": "github-project-populator",
+  "version": "1.0.0",
+  "description": "Automate GitHub Projects V2 population for WordPress development workflow",
+  "main": "backend/index.js",
+  "type": "module",
+  "scripts": {
+    "populate": "node backend/index.js",
+    "batch-create": "node backend/batch-create.js",
+    "list-projects": "node backend/list-projects.js",
+    "dry-run": "node backend/index.js --dry-run",
+    "report-single": "node backend/report-single.js",
+    "report-all": "node backend/report-all.js"
+  },
+  "keywords": [
+    "github",
+    "projects",
+    "wordpress",
+    "project-management",
+    "automation"
+  ],
+  "author": "net1io",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/graphql": "^7.0.2",
+    "dotenv": "^16.3.1",
+    "chalk": "^5.3.0",
+    "ora": "^7.0.1"
+  }
+}
