@@ -26,7 +26,7 @@ This tool automates the creation of standardized GitHub Projects for WordPress w
 
 | Challenge | Solution |
 |-----------|----------|
-| Inconsistent project execution | Standardized 10-phase, 32-task template |
+| Inconsistent project execution | Standardized 11-phase, 33-activity template |
 | Difficult resource allocation | Developer assignment matrix with workload visibility |
 | Client communication gaps | Phase-based milestones with clear deliverables |
 
@@ -34,7 +34,7 @@ This tool automates the creation of standardized GitHub Projects for WordPress w
 - 20-day project cycle (1 calendar month)
 - 6 parallel projects capacity
 - 6 developers with specialized roles
-- 32 tasks with 150+ checklist items per project
+- 33 activities with 150+ checklist items per project
 
 ---
 
@@ -135,7 +135,7 @@ Step 3: Task Population
     │
     ▼
 ┌─────────────────────────────────────────────────────────┐
-│  32 Issues Created (one per task)                       │
+│  33 Issues Created (one per activity)                    │
 │  - Title: [Phase Name] Task Name                        │
 │  - Body: Description + Checklist                        │
 │  - Labels: Categorization tags                          │
@@ -158,35 +158,35 @@ Step 4: Ready for Execution
 
 ## Project Management
 
-### The 10-Phase Lifecycle
+### The 11-Phase Lifecycle
 
 Every WordPress project follows this standardized lifecycle:
 (6 developers x 20 days = 120 person-days / 20 days per project = 6 parallel projects per month)
 
 ```
-Phase 1          Phase 2          Phase 3          Phase 4          Phase 5
-Discovery   ──▶  Planning    ──▶  Design     ──▶  Environment ──▶  Backend
-(10% | 2d)       (8% | 1.5d)      (15% | 3d)       (5% | 1d)        (20% | 4d)
-    │                │                │                │                │
-    ▼                ▼                ▼                ▼                ▼
-┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐
-│Client  │      │Solution│      │UI/UX   │      │Hosting │      │Theme   │
-│Brief   │      │Arch    │      │Mockups │      │Setup   │      │Plugins │
-│Scope   │      │Tech    │      │Review  │      │WP      │      │Custom  │
-│        │      │Spec    │      │Approve │      │Install │      │Code    │
-└────────┘      └────────┘      └────────┘      └────────┘      └────────┘
+Phase 1       Phase 2       Phase 3       Phase 4       Phase 5       Phase 6
+Discovery ──▶ Planning  ──▶ Design    ──▶ Environment ──▶ Backend  ──▶ Frontend
+(10% | 2d)    (8% | 1.5d)   (15% | 3d)    (5% | 1d)       (20% | 4d)    (20% | 4d)
+    │             │             │             │               │             │
+    ▼             ▼             ▼             ▼               ▼             ▼
+┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
+│Client  │    │Tech    │    │UI/UX   │    │Hosting │    │Theme   │    │Pages   │
+│Brief   │    │Scoping │    │All     │    │Setup   │    │Plugins │    │Build   │
+│Require │    │Arch    │    │Pages   │    │WP/CMS  │    │Custom  │    │Respond │
+│Plan    │    │Spec    │    │Approve │    │DevSync │    │Ecom    │    │Animate │
+└────────┘    └────────┘    └────────┘    └────────┘    └────────┘    └────────┘
 
-Phase 6          Phase 7          Phase 8          Phase 9          Phase 10
-Frontend    ──▶  Content    ──▶  Testing    ──▶  UAT        ──▶  Launch
-(20% | 4d)       (7% | 1.5d)      (10% | 2d)       (3% | 0.5d)      (2% | 0.5d)
-    │                │                │                │                │
-    ▼                ▼                ▼                ▼                ▼
-┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐      ┌────────┐
-│Pages   │      │Text    │      │Function│      │Client  │      │Go-Live │
-│Respond │      │Images  │      │Browser │      │Review  │      │Handover│
-│Animate │      │SEO     │      │Perform │      │Feedback│      │Training│
-│        │      │        │      │Security│      │Sign-off│      │        │
-└────────┘      └────────┘      └────────┘      └────────┘      └────────┘
+Phase 7       Phase 8       Phase 9          Phase 10      Phase 11
+Content   ──▶ Testing   ──▶ Functionality ──▶ User      ──▶ Deployment
+(7% | 1.5d)   (5% | 1d)     (5% | 1d)         Acceptance    (2% | 0.5d)
+    │             │             │               (3% | 0.5d)      │
+    ▼             ▼             ▼               │                ▼
+┌────────┐    ┌────────┐    ┌────────┐        ▼            ┌────────┐
+│Migrate │    │Func    │    │Perform │    ┌────────┐       │Pre-    │
+│Format  │    │Browser │    │Security│    │Review  │       │Launch  │
+│QA      │    │Mobile  │    │SEO     │    │Feedback│       │Go-Live │
+│        │    │        │    │        │    │Handover│       │Post    │
+└────────┘    └────────┘    └────────┘    └────────┘       └────────┘
 ```
 
 ### Time Allocation Model
@@ -195,16 +195,17 @@ The 20-day cycle breaks down as follows:
 
 | Phase | % | Days | Gate Criteria |
 |-------|---|------|---------------|
-| 1. Discovery & Requirements | 10% | 2.0 | Signed requirements document |
-| 2. Planning & Architecture | 8% | 1.5 | Technical spec approved |
+| 1. Discovery | 10% | 2.0 | Signed requirements document |
+| 2. Planning | 8% | 1.5 | Technical spec approved |
 | 3. Design | 15% | 3.0 | Design sign-off from client |
-| 4. Environment Setup | 5% | 1.0 | WordPress accessible on staging |
-| 5. Backend Development | 20% | 4.0 | All functionality working |
-| 6. Frontend Development | 20% | 4.0 | All pages built and responsive |
-| 7. Content Population | 7% | 1.5 | All content entered |
-| 8. Testing | 10% | 2.0 | QA checklist complete |
-| 9. UAT | 3% | 0.5 | Client sign-off |
-| 10. Deployment | 2% | 0.5 | Site live, handover complete |
+| 4. Environment | 5% | 1.0 | WordPress accessible on staging |
+| 5. Backend | 20% | 4.0 | All functionality working |
+| 6. Frontend | 20% | 4.0 | All pages built and responsive |
+| 7. Content | 7% | 1.5 | All content entered |
+| 8. Testing | 5% | 1.0 | Functional & browser tests complete |
+| 9. Functionality | 5% | 1.0 | Performance, security, SEO verified |
+| 10. User Acceptance | 3% | 0.5 | Client sign-off |
+| 11. Deployment | 2% | 0.5 | Site live, handover complete |
 
 ### Project Status Tracking
 
@@ -858,21 +859,22 @@ Generates comprehensive portfolio overview including:
 PROJECT: Client Alpha - E-Commerce
 ────────────────────────────────────────────────────────────
 Phase Progress:    █████████░░░░░░░░░░░  45% (Phase 5: Backend)
-Tasks Completed:   14 / 32
+Activities Completed:   14 / 33
 Days Elapsed:      9 / 20
 Status:            🟢 ON TRACK
 
 Phase Breakdown:
-├── Phase 1: Discovery      ████████████████████  100% ✓
-├── Phase 2: Planning       ████████████████████  100% ✓
-├── Phase 3: Design         ████████████████████  100% ✓
-├── Phase 4: Environment    ████████████████████  100% ✓
-├── Phase 5: Backend        ██████████░░░░░░░░░░   50% ← Current
-├── Phase 6: Frontend       ░░░░░░░░░░░░░░░░░░░░    0%
-├── Phase 7: Content        ░░░░░░░░░░░░░░░░░░░░    0%
-├── Phase 8: Testing        ░░░░░░░░░░░░░░░░░░░░    0%
-├── Phase 9: UAT            ░░░░░░░░░░░░░░░░░░░░    0%
-└── Phase 10: Launch        ░░░░░░░░░░░░░░░░░░░░    0%
+├── Phase 1: Discovery         ████████████████████  100% ✓
+├── Phase 2: Planning          ████████████████████  100% ✓
+├── Phase 3: Design            ████████████████████  100% ✓
+├── Phase 4: Environment       ████████████████████  100% ✓
+├── Phase 5: Backend           ██████████░░░░░░░░░░   50% ← Current
+├── Phase 6: Frontend          ░░░░░░░░░░░░░░░░░░░░    0%
+├── Phase 7: Content           ░░░░░░░░░░░░░░░░░░░░    0%
+├── Phase 8: Testing           ░░░░░░░░░░░░░░░░░░░░    0%
+├── Phase 9: Functionality     ░░░░░░░░░░░░░░░░░░░░    0%
+├── Phase 10: User Acceptance  ░░░░░░░░░░░░░░░░░░░░    0%
+└── Phase 11: Deployment       ░░░░░░░░░░░░░░░░░░░░    0%
 ────────────────────────────────────────────────────────────
 ```
 

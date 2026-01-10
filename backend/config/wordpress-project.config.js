@@ -18,15 +18,16 @@ export const projectConfig = {
       type: "SINGLE_SELECT",
       options: [
         "1. Discovery",
-        "2. Planning", 
+        "2. Planning",
         "3. Design",
         "4. Environment",
-        "5. Backend Dev",
-        "6. Frontend Dev",
+        "5. Backend",
+        "6. Frontend",
         "7. Content",
         "8. Testing",
-        "9. UAT",
-        "10. Deployment"
+        "9. Functionality",
+        "10. User Acceptance",
+        "11. Deployment"
       ]
     },
     priority: {
@@ -54,11 +55,11 @@ export const projectConfig = {
     }
   },
 
-  // Phases and Tasks
+  // Phases and Tasks (33 activities across 11 phases)
   phases: [
     {
       id: "phase-1",
-      name: "Discovery & Requirements",
+      name: "Discovery",
       percentage: 10,
       days: 2,
       color: "BLUE",
@@ -71,7 +72,7 @@ export const projectConfig = {
           labels: ["client-facing", "documentation"],
           checklist: [
             "Schedule kickoff call",
-            "Prepare discovery questionnaire", 
+            "Prepare discovery questionnaire",
             "Document business objectives",
             "Identify target audience",
             "Create competitor brief"
@@ -93,29 +94,6 @@ export const projectConfig = {
           ]
         },
         {
-          title: "Technical Scoping",
-          description: "Hosting requirements validation, domain & SSL setup planning, performance requirements, security requirements",
-          percentage: 3,
-          priority: "High",
-          labels: ["technical", "infrastructure"],
-          checklist: [
-            "Validate Hostinger cPanel specs",
-            "Plan domain & SSL setup",
-            "Define performance requirements",
-            "Document security requirements",
-            "Estimate traffic expectations"
-          ]
-        }
-      ]
-    },
-    {
-      id: "phase-2",
-      name: "Planning & Architecture",
-      percentage: 8,
-      days: 1.5,
-      color: "PURPLE",
-      tasks: [
-        {
           title: "Project Planning",
           description: "Milestone definition, resource allocation, communication protocol setup, risk assessment",
           percentage: 3,
@@ -127,6 +105,29 @@ export const projectConfig = {
             "Setup communication channels",
             "Create RACI matrix",
             "Conduct risk assessment"
+          ]
+        }
+      ]
+    },
+    {
+      id: "phase-2",
+      name: "Planning",
+      percentage: 8,
+      days: 1.5,
+      color: "PURPLE",
+      tasks: [
+        {
+          title: "Technical Scoping",
+          description: "Hosting requirements validation, domain & SSL setup planning, performance requirements, security requirements",
+          percentage: 3,
+          priority: "High",
+          labels: ["technical", "infrastructure"],
+          checklist: [
+            "Validate Hostinger cPanel specs",
+            "Plan domain & SSL setup",
+            "Define performance requirements",
+            "Document security requirements",
+            "Estimate traffic expectations"
           ]
         },
         {
@@ -144,7 +145,7 @@ export const projectConfig = {
           ]
         },
         {
-          title: "Technical Specification Document",
+          title: "Technical Spec Docs",
           description: "Sitemap creation, wireframe approval workflow, feature specification sign-off",
           percentage: 2,
           priority: "High",
@@ -179,9 +180,9 @@ export const projectConfig = {
           ]
         },
         {
-          title: "UI/UX Design - Homepage",
-          description: "Homepage mockup in Figma/Adobe XD with mobile responsive design specs",
-          percentage: 3,
+          title: "UI/UX Design - All Pages",
+          description: "Complete UI/UX design for homepage and all inner pages in Figma/Adobe XD with mobile responsive design specs",
+          percentage: 7,
           priority: "Critical",
           labels: ["design", "ui-ux"],
           checklist: [
@@ -189,16 +190,7 @@ export const projectConfig = {
             "Create tablet homepage mockup",
             "Create mobile homepage mockup",
             "Design hero section",
-            "Design navigation"
-          ]
-        },
-        {
-          title: "UI/UX Design - Inner Pages",
-          description: "Inner page templates design, navigation & user flow mapping",
-          percentage: 4,
-          priority: "High",
-          labels: ["design", "ui-ux"],
-          checklist: [
+            "Design navigation",
             "Design about page template",
             "Design services/products template",
             "Design contact page template",
@@ -227,7 +219,7 @@ export const projectConfig = {
     },
     {
       id: "phase-4",
-      name: "Environment Setup",
+      name: "Environment",
       percentage: 5,
       days: 1,
       color: "ORANGE",
@@ -247,7 +239,7 @@ export const projectConfig = {
           ]
         },
         {
-          title: "WordPress Installation",
+          title: "WordPress/CMS Installation",
           description: "Fresh WP installation via Softaculous, admin credentials setup, staging environment",
           percentage: 2,
           priority: "Critical",
@@ -276,32 +268,23 @@ export const projectConfig = {
     },
     {
       id: "phase-5",
-      name: "Backend Development",
+      name: "Backend",
       percentage: 20,
       days: 4,
       color: "RED",
       tasks: [
         {
-          title: "Theme Setup & Configuration",
-          description: "Theme installation, child theme creation, theme options, header/footer setup, menu structure",
-          percentage: 5,
+          title: "Theme Setup, Essential Plugin Installation & Configuration",
+          description: "Theme installation, child theme creation, essential plugins setup including page builder, SEO, forms, security, performance, backup",
+          percentage: 8,
           priority: "Critical",
-          labels: ["backend", "theme"],
+          labels: ["backend", "theme", "plugins"],
           checklist: [
             "Install parent theme",
             "Create child theme",
             "Configure theme options",
             "Setup header/footer",
-            "Create menu structure"
-          ]
-        },
-        {
-          title: "Essential Plugin Installation",
-          description: "Install and configure: page builder, SEO, forms, security, performance, backup plugins",
-          percentage: 3,
-          priority: "Critical",
-          labels: ["backend", "plugins"],
-          checklist: [
+            "Create menu structure",
             "Install Elementor/Gutenberg",
             "Configure Yoast SEO",
             "Setup WPForms/Contact Form 7",
@@ -346,15 +329,15 @@ export const projectConfig = {
     },
     {
       id: "phase-6",
-      name: "Frontend Development",
+      name: "Frontend",
       percentage: 20,
       days: 4,
       color: "YELLOW",
       tasks: [
         {
-          title: "Page Building - Core Pages",
-          description: "Homepage, About, Services/Products, Contact, Blog template construction",
-          percentage: 8,
+          title: "Page Building - Core 7 Secondary Pages",
+          description: "Complete page building for homepage, core pages, and all secondary pages including policies, templates, and error pages",
+          percentage: 13,
           priority: "Critical",
           labels: ["frontend", "pages"],
           checklist: [
@@ -363,16 +346,7 @@ export const projectConfig = {
             "Build services/products page",
             "Build contact page with forms",
             "Build blog listing page",
-            "Build single post template"
-          ]
-        },
-        {
-          title: "Page Building - Secondary Pages",
-          description: "Policies, terms, FAQ, landing pages, category/archive templates, 404 page",
-          percentage: 5,
-          priority: "High",
-          labels: ["frontend", "pages"],
-          checklist: [
+            "Build single post template",
             "Build privacy policy page",
             "Build terms & conditions page",
             "Build FAQ page",
@@ -414,7 +388,7 @@ export const projectConfig = {
     },
     {
       id: "phase-7",
-      name: "Content Population",
+      name: "Content",
       percentage: 7,
       days: 1.5,
       color: "PINK",
@@ -422,7 +396,7 @@ export const projectConfig = {
         {
           title: "Content Migration/Entry",
           description: "Text content insertion, image optimization & upload (WebP), media library organization",
-          percentage: 4,
+          percentage: 3,
           priority: "High",
           labels: ["content", "media"],
           checklist: [
@@ -436,7 +410,7 @@ export const projectConfig = {
         {
           title: "Content Formatting & SEO",
           description: "Typography consistency, spacing alignment, CTA placement, internal linking, meta data",
-          percentage: 3,
+          percentage: 2,
           priority: "High",
           labels: ["content", "seo"],
           checklist: [
@@ -447,20 +421,35 @@ export const projectConfig = {
             "Add meta titles & descriptions",
             "Configure heading hierarchy"
           ]
+        },
+        {
+          title: "Quality Assurance",
+          description: "Content quality review, proofreading, link validation, visual consistency check",
+          percentage: 2,
+          priority: "High",
+          labels: ["content", "qa"],
+          checklist: [
+            "Proofread all content",
+            "Verify spelling and grammar",
+            "Check link accuracy",
+            "Validate visual consistency",
+            "Review content hierarchy",
+            "Confirm brand voice alignment"
+          ]
         }
       ]
     },
     {
       id: "phase-8",
       name: "Testing",
-      percentage: 10,
-      days: 2,
+      percentage: 5,
+      days: 1,
       color: "GRAY",
       tasks: [
         {
           title: "Functional Testing",
           description: "All links verification, form submission testing, e-commerce checkout flow, search functionality",
-          percentage: 3,
+          percentage: 2,
           priority: "Critical",
           labels: ["testing", "qa"],
           checklist: [
@@ -474,20 +463,41 @@ export const projectConfig = {
         },
         {
           title: "Cross-Browser Testing",
-          description: "Chrome, Firefox, Safari, Edge testing on desktop and mobile browsers",
+          description: "Chrome, Firefox, Safari, Edge testing on desktop browsers",
           percentage: 2,
           priority: "High",
           labels: ["testing", "browser"],
           checklist: [
-            "Test on Chrome",
-            "Test on Firefox",
-            "Test on Safari",
-            "Test on Edge",
-            "Test on iOS Safari",
-            "Test on Chrome Android",
+            "Test on Chrome desktop",
+            "Test on Firefox desktop",
+            "Test on Safari desktop",
+            "Test on Edge desktop",
             "Fix browser-specific CSS issues"
           ]
         },
+        {
+          title: "Mobile Browser Testing",
+          description: "Mobile browser testing on iOS and Android devices",
+          percentage: 1,
+          priority: "High",
+          labels: ["testing", "browser", "mobile"],
+          checklist: [
+            "Test on iOS Safari",
+            "Test on Chrome Android",
+            "Test responsive layouts",
+            "Verify touch interactions",
+            "Fix mobile-specific issues"
+          ]
+        }
+      ]
+    },
+    {
+      id: "phase-9",
+      name: "Functionality",
+      percentage: 5,
+      days: 1,
+      color: "CYAN",
+      tasks: [
         {
           title: "Performance Testing",
           description: "Google PageSpeed (target: 90+), GTmetrix analysis, Core Web Vitals optimization",
@@ -534,8 +544,8 @@ export const projectConfig = {
       ]
     },
     {
-      id: "phase-9",
-      name: "User Acceptance Testing",
+      id: "phase-10",
+      name: "User Acceptance",
       percentage: 3,
       days: 0.5,
       color: "BLUE",
@@ -543,7 +553,7 @@ export const projectConfig = {
         {
           title: "Client Review Session",
           description: "Guided walkthrough with client, feature demonstration, content accuracy verification",
-          percentage: 2,
+          percentage: 1,
           priority: "Critical",
           labels: ["client-facing", "uat"],
           checklist: [
@@ -567,12 +577,27 @@ export const projectConfig = {
             "Re-verify with client",
             "Get final sign-off"
           ]
+        },
+        {
+          title: "Handover & Documentation",
+          description: "Prepare comprehensive documentation, training materials, and handover package for client",
+          percentage: 1,
+          priority: "High",
+          labels: ["client-facing", "documentation"],
+          checklist: [
+            "Prepare handover documentation",
+            "Create training materials",
+            "Document admin procedures",
+            "Compile credentials package",
+            "Prepare maintenance guidelines",
+            "Schedule handover meeting"
+          ]
         }
       ]
     },
     {
-      id: "phase-10",
-      name: "Deployment & Launch",
+      id: "phase-11",
+      name: "Deployment",
       percentage: 2,
       days: 0.5,
       color: "GREEN",
@@ -580,7 +605,7 @@ export const projectConfig = {
         {
           title: "Pre-Launch Checklist",
           description: "Favicon, analytics, search console, social meta tags, robots.txt, htaccess review",
-          percentage: 1,
+          percentage: 0.7,
           priority: "Critical",
           labels: ["deployment", "seo"],
           checklist: [
@@ -594,9 +619,9 @@ export const projectConfig = {
           ]
         },
         {
-          title: "Go-Live Execution",
-          description: "Staging to production migration, DNS propagation monitoring, cache purge, final verification",
-          percentage: 0.5,
+          title: "Go-Live Monitoring",
+          description: "Staging to production migration, DNS propagation monitoring, cache management, live verification",
+          percentage: 0.7,
           priority: "Critical",
           labels: ["deployment", "launch"],
           checklist: [
@@ -604,22 +629,23 @@ export const projectConfig = {
             "Monitor DNS propagation",
             "Purge all caches",
             "Warm cache",
-            "Final live verification"
+            "Final live verification",
+            "Monitor site performance post-launch"
           ]
         },
         {
           title: "Post-Launch Handover",
-          description: "Client handover documentation, admin training session, backup verification",
-          percentage: 0.5,
+          description: "Client handover session, admin training, backup verification, project closure",
+          percentage: 0.6,
           priority: "High",
           labels: ["client-facing", "documentation"],
           checklist: [
-            "Prepare handover documentation",
-            "Schedule training session",
-            "Conduct admin training",
-            "Verify backup system",
-            "Provide login credentials",
-            "Close project"
+            "Conduct final handover session",
+            "Complete admin training",
+            "Verify backup system operational",
+            "Provide all login credentials",
+            "Deliver final documentation",
+            "Close project officially"
           ]
         }
       ]
@@ -654,6 +680,7 @@ export const projectConfig = {
     { name: "testing", color: "FBCA04", description: "Testing tasks" },
     { name: "qa", color: "D4C5F9", description: "Quality assurance" },
     { name: "browser", color: "C2E0C6", description: "Browser testing" },
+    { name: "mobile", color: "FFC0CB", description: "Mobile testing" },
     { name: "performance", color: "F9D0C4", description: "Performance optimization" },
     { name: "security", color: "B60205", description: "Security tasks" },
     { name: "uat", color: "0052CC", description: "User acceptance testing" },

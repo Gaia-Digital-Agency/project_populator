@@ -10,21 +10,22 @@ This document serves as a reference for the complete WordPress development lifec
 
 | Phase | Percentage | Days (20-day cycle) |
 |-------|------------|---------------------|
-| Discovery & Requirements | 10% | 2.0 |
-| Planning & Architecture | 8% | 1.5 |
+| Discovery | 10% | 2.0 |
+| Planning | 8% | 1.5 |
 | Design | 15% | 3.0 |
-| Environment Setup | 5% | 1.0 |
-| Backend Development | 20% | 4.0 |
-| Frontend Development | 20% | 4.0 |
-| Content Population | 7% | 1.5 |
-| Testing | 10% | 2.0 |
-| User Acceptance Testing | 3% | 0.5 |
-| Deployment & Launch | 2% | 0.5 |
+| Environment | 5% | 1.0 |
+| Backend | 20% | 4.0 |
+| Frontend | 20% | 4.0 |
+| Content | 7% | 1.5 |
+| Testing | 5% | 1.0 |
+| Functionality | 5% | 1.0 |
+| User Acceptance | 3% | 0.5 |
+| Deployment | 2% | 0.5 |
 | **Total** | **100%** | **20 days** |
 
 ---
 
-## Phase 1: Discovery & Requirements (10% | 2 days)
+## Phase 1: Discovery (10% | 2 days)
 
 ### 1.1 Client Onboarding & Kickoff Call (3%)
 **Priority:** Critical
@@ -47,21 +48,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Document form requirements
 - [ ] Identify membership/booking needs
 
-### 1.3 Technical Scoping (3%)
-**Priority:** High
-
-**Checklist:**
-- [ ] Validate Hostinger cPanel specs
-- [ ] Plan domain & SSL setup
-- [ ] Define performance requirements
-- [ ] Document security requirements
-- [ ] Estimate traffic expectations
-
----
-
-## Phase 2: Planning & Architecture (8% | 1.5 days)
-
-### 2.1 Project Planning (3%)
+### 1.3 Project Planning (3%)
 **Priority:** Critical
 
 **Checklist:**
@@ -70,6 +57,20 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Setup communication channels
 - [ ] Create RACI matrix
 - [ ] Conduct risk assessment
+
+---
+
+## Phase 2: Planning (8% | 1.5 days)
+
+### 2.1 Technical Scoping (3%)
+**Priority:** High
+
+**Checklist:**
+- [ ] Validate Hostinger cPanel specs
+- [ ] Plan domain & SSL setup
+- [ ] Define performance requirements
+- [ ] Document security requirements
+- [ ] Estimate traffic expectations
 
 ### 2.2 Solution Architecture (3%)
 **Priority:** High
@@ -81,7 +82,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Design URL structure
 - [ ] Plan database schema
 
-### 2.3 Technical Specification Document (2%)
+### 2.3 Technical Spec Docs (2%)
 **Priority:** High
 
 **Checklist:**
@@ -103,7 +104,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Position logo and branding assets
 - [ ] Create style guide document
 
-### 3.2 UI/UX Design - Homepage (3%)
+### 3.2 UI/UX Design - All Pages (7%)
 **Priority:** Critical
 
 **Checklist:**
@@ -112,11 +113,6 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Create mobile homepage mockup
 - [ ] Design hero section
 - [ ] Design navigation
-
-### 3.3 UI/UX Design - Inner Pages (4%)
-**Priority:** High
-
-**Checklist:**
 - [ ] Design about page template
 - [ ] Design services/products template
 - [ ] Design contact page template
@@ -124,7 +120,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Design single post template
 - [ ] Map user flow
 
-### 3.4 Design Review & Approval (3%)
+### 3.3 Design Review & Approval (3%)
 **Priority:** Critical
 
 **Checklist:**
@@ -138,7 +134,7 @@ This document serves as a reference for the complete WordPress development lifec
 
 ---
 
-## Phase 4: Environment Setup (5% | 1 day)
+## Phase 4: Environment (5% | 1 day)
 
 ### 4.1 Hostinger/cPanel Configuration (2%)
 **Priority:** Critical
@@ -150,7 +146,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Set PHP version to 8.0+
 - [ ] Create MySQL database
 
-### 4.2 WordPress Installation (2%)
+### 4.2 WordPress/CMS Installation (2%)
 **Priority:** Critical
 
 **Checklist:**
@@ -170,9 +166,9 @@ This document serves as a reference for the complete WordPress development lifec
 
 ---
 
-## Phase 5: Backend Development (20% | 4 days)
+## Phase 5: Backend (20% | 4 days)
 
-### 5.1 Theme Setup & Configuration (5%)
+### 5.1 Theme Setup, Essential Plugin Installation & Configuration (8%)
 **Priority:** Critical
 
 **Checklist:**
@@ -181,11 +177,6 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Configure theme options
 - [ ] Setup header/footer
 - [ ] Create menu structure
-
-### 5.2 Essential Plugin Installation (3%)
-**Priority:** Critical
-
-**Checklist:**
 - [ ] Install Elementor/Gutenberg
 - [ ] Configure Yoast SEO
 - [ ] Setup WPForms/Contact Form 7
@@ -193,7 +184,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Configure caching plugin
 - [ ] Setup UpdraftPlus backup
 
-### 5.3 Custom Functionality Development (6%)
+### 5.2 Custom Functionality Development (6%)
 **Priority:** High
 
 **Checklist:**
@@ -204,7 +195,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Develop custom widgets
 - [ ] Integrate third-party APIs
 
-### 5.4 E-Commerce Setup - WooCommerce (6%)
+### 5.3 E-Commerce Setup - WooCommerce (6%)
 **Priority:** High
 **Condition:** Site Type = E-Commerce
 
@@ -219,9 +210,9 @@ This document serves as a reference for the complete WordPress development lifec
 
 ---
 
-## Phase 6: Frontend Development (20% | 4 days)
+## Phase 6: Frontend (20% | 4 days)
 
-### 6.1 Page Building - Core Pages (8%)
+### 6.1 Page Building - Core 7 Secondary Pages (13%)
 **Priority:** Critical
 
 **Checklist:**
@@ -231,11 +222,6 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Build contact page with forms
 - [ ] Build blog listing page
 - [ ] Build single post template
-
-### 6.2 Page Building - Secondary Pages (5%)
-**Priority:** High
-
-**Checklist:**
 - [ ] Build privacy policy page
 - [ ] Build terms & conditions page
 - [ ] Build FAQ page
@@ -244,7 +230,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Build 404 error page
 - [ ] Build search results page
 
-### 6.3 Responsive Implementation (4%)
+### 6.2 Responsive Implementation (4%)
 **Priority:** Critical
 
 **Checklist:**
@@ -254,7 +240,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Setup mobile menu
 - [ ] Test all device viewports
 
-### 6.4 Animation & Interactions (3%)
+### 6.3 Animation & Interactions (3%)
 **Priority:** Medium
 
 **Checklist:**
@@ -266,9 +252,9 @@ This document serves as a reference for the complete WordPress development lifec
 
 ---
 
-## Phase 7: Content Population (7% | 1.5 days)
+## Phase 7: Content (7% | 1.5 days)
 
-### 7.1 Content Migration/Entry (4%)
+### 7.1 Content Migration/Entry (3%)
 **Priority:** High
 
 **Checklist:**
@@ -278,7 +264,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Organize media library
 - [ ] Add alt text to all images
 
-### 7.2 Content Formatting & SEO (3%)
+### 7.2 Content Formatting & SEO (2%)
 **Priority:** High
 
 **Checklist:**
@@ -289,11 +275,22 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Add meta titles & descriptions
 - [ ] Configure heading hierarchy
 
+### 7.3 Quality Assurance (2%)
+**Priority:** High
+
+**Checklist:**
+- [ ] Proofread all content
+- [ ] Verify spelling and grammar
+- [ ] Check link accuracy
+- [ ] Validate visual consistency
+- [ ] Review content hierarchy
+- [ ] Confirm brand voice alignment
+
 ---
 
-## Phase 8: Testing (10% | 2 days)
+## Phase 8: Testing (5% | 1 day)
 
-### 8.1 Functional Testing (3%)
+### 8.1 Functional Testing (2%)
 **Priority:** Critical
 
 **Checklist:**
@@ -308,15 +305,27 @@ This document serves as a reference for the complete WordPress development lifec
 **Priority:** High
 
 **Checklist:**
-- [ ] Test on Chrome
-- [ ] Test on Firefox
-- [ ] Test on Safari
-- [ ] Test on Edge
-- [ ] Test on iOS Safari
-- [ ] Test on Chrome Android
+- [ ] Test on Chrome desktop
+- [ ] Test on Firefox desktop
+- [ ] Test on Safari desktop
+- [ ] Test on Edge desktop
 - [ ] Fix browser-specific CSS issues
 
-### 8.3 Performance Testing (2%)
+### 8.3 Mobile Browser Testing (1%)
+**Priority:** High
+
+**Checklist:**
+- [ ] Test on iOS Safari
+- [ ] Test on Chrome Android
+- [ ] Test responsive layouts
+- [ ] Verify touch interactions
+- [ ] Fix mobile-specific issues
+
+---
+
+## Phase 9: Functionality (5% | 1 day)
+
+### 9.1 Performance Testing (2%)
 **Priority:** Critical
 
 **Checklist:**
@@ -327,7 +336,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Verify lazy loading
 - [ ] Target: 90+ mobile score
 
-### 8.4 Security Testing (2%)
+### 9.2 Security Testing (2%)
 **Priority:** Critical
 
 **Checklist:**
@@ -337,7 +346,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Verify SSL across all pages
 - [ ] Test brute force protection
 
-### 8.5 SEO Audit (1%)
+### 9.3 SEO Audit (1%)
 **Priority:** High
 
 **Checklist:**
@@ -349,9 +358,9 @@ This document serves as a reference for the complete WordPress development lifec
 
 ---
 
-## Phase 9: User Acceptance Testing (3% | 0.5 days)
+## Phase 10: User Acceptance (3% | 0.5 days)
 
-### 9.1 Client Review Session (2%)
+### 10.1 Client Review Session (1%)
 **Priority:** Critical
 
 **Checklist:**
@@ -362,7 +371,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Verify content accuracy
 - [ ] Collect feedback
 
-### 9.2 UAT Feedback Implementation (1%)
+### 10.2 UAT Feedback Implementation (1%)
 **Priority:** Critical
 
 **Checklist:**
@@ -371,11 +380,22 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Re-verify with client
 - [ ] Get final sign-off
 
+### 10.3 Handover & Documentation (1%)
+**Priority:** High
+
+**Checklist:**
+- [ ] Prepare handover documentation
+- [ ] Create training materials
+- [ ] Document admin procedures
+- [ ] Compile credentials package
+- [ ] Prepare maintenance guidelines
+- [ ] Schedule handover meeting
+
 ---
 
-## Phase 10: Deployment & Launch (2% | 0.5 days)
+## Phase 11: Deployment (2% | 0.5 days)
 
-### 10.1 Pre-Launch Checklist (1%)
+### 11.1 Pre-Launch Checklist (0.7%)
 **Priority:** Critical
 
 **Checklist:**
@@ -387,7 +407,7 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Review robots.txt
 - [ ] Review .htaccess
 
-### 10.2 Go-Live Execution (0.5%)
+### 11.2 Go-Live Monitoring (0.7%)
 **Priority:** Critical
 
 **Checklist:**
@@ -396,17 +416,18 @@ This document serves as a reference for the complete WordPress development lifec
 - [ ] Purge all caches
 - [ ] Warm cache
 - [ ] Final live verification
+- [ ] Monitor site performance post-launch
 
-### 10.3 Post-Launch Handover (0.5%)
+### 11.3 Post-Launch Handover (0.6%)
 **Priority:** High
 
 **Checklist:**
-- [ ] Prepare handover documentation
-- [ ] Schedule training session
-- [ ] Conduct admin training
-- [ ] Verify backup system
-- [ ] Provide login credentials
-- [ ] Close project
+- [ ] Conduct final handover session
+- [ ] Complete admin training
+- [ ] Verify backup system operational
+- [ ] Provide all login credentials
+- [ ] Deliver final documentation
+- [ ] Close project officially
 
 ---
 
@@ -440,6 +461,7 @@ This document serves as a reference for the complete WordPress development lifec
 | testing | Yellow | Testing tasks |
 | qa | Light Purple | Quality assurance |
 | browser | Light Green | Browser testing |
+| mobile | Pink | Mobile testing |
 | performance | Pink | Performance optimization |
 | security | Red | Security tasks |
 | uat | Blue | User acceptance testing |
@@ -456,7 +478,7 @@ This document serves as a reference for the complete WordPress development lifec
 Options: Backlog, To Do, In Progress, In Review, Done, Blocked
 
 ### Phase Field
-Options: 1. Discovery, 2. Planning, 3. Design, 4. Environment, 5. Backend Dev, 6. Frontend Dev, 7. Content, 8. Testing, 9. UAT, 10. Deployment
+Options: 1. Discovery, 2. Planning, 3. Design, 4. Environment, 5. Backend, 6. Frontend, 7. Content, 8. Testing, 9. Functionality, 10. User Acceptance, 11. Deployment
 
 ### Priority Field
 Options: Critical, High, Medium, Low

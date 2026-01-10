@@ -17,7 +17,7 @@ CLIENT_NAME="Client Name" npm run populate
 CLIENT_NAME="Acme Corp" npm run populate
 ```
 
-This creates a GitHub Project with 32 tasks across 10 phases.
+This creates a GitHub Project with 33 activities across 11 phases.
 
 ### Multiple Projects
 

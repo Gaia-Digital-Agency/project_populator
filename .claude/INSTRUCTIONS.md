@@ -41,7 +41,7 @@ npm run report-all
 - ✅ Use ES module syntax (import/export)
 - ✅ Reference multi-account setup when discussing Git/GitHub
 - ✅ Suggest using existing npm scripts (don't create new ones without reason)
-- ✅ Remember this is for WordPress development (10 phases, 32 tasks)
+- ✅ Remember this is for WordPress development (11 phases, 33 activities)
 - ✅ Check `.claude/PROJECT_CONTEXT.md` for detailed project info
 
 ### DON'T:
@@ -133,7 +133,7 @@ Always remember when discussing Git/GitHub:
 
 - This is a **production tool** used for real client work
 - Changes should maintain **backward compatibility**
-- **10-phase WordPress template** is core to the system
+- **11-phase WordPress template** is core to the system
 - Users may be **non-technical project managers**
 - Keep instructions **clear and concise**
 - **Multi-account setup** is critical for their workflow

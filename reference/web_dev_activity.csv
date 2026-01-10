@@ -1,0 +1,44 @@
+Activity ID,PHASE,OVERALL TRACK
+1,Discovery,Client Onboarding & Kickoff Call
+2,Discovery,Requirements Gathering
+3,Discovery,Project Planning
+,,
+4,Planning,Technical Scoping
+5,Planning,Solution Architecture
+6,Planning,Technical Spec Docs
+,,
+7,Design,Visual Identity Setup
+8,Design,UI/UX Design - All Pages
+9,Design,Design Review & Approval
+,,
+10,Environment,Hostinger/cPanel Configuration
+11,Environment,WordPress/CMS Installation
+12,Environment,Development Environment Sync
+,,
+13,Backend,"Theme Setup, Essential Plugin Installation  & Configuration"
+14,Backend,Custom Functionality Development
+15,Backend,E-Commerce Setup (WooCommerce)
+,,
+16,Frontend,Page Building - Core 7 Secondary Pages
+17,Frontend,Responsive Implementation
+18,Frontend,Animation & Interactions
+,,
+19,Content,Content Migration/Entry
+20,Content,Content Formatting & SEO
+21,Content,Quality Assurance
+,,
+22,Testing,Functional Testing
+23,Testing,Cross-Browser Testing
+24,Testing,Mobile Browser Testing
+,,
+25,Functionality,Performance Testing
+26,Functionality,Security Testing
+27,Functionality,SEO Audit
+,,
+28,User Acceptance,Client Review Session
+29,User Acceptance,UAT Feedback Implementation
+30,User Acceptance,Handover & Documentation
+,,
+31,Deployment,Pre-Launch Checklist
+32,Deployment,Go-Live Monitoring
+33,Deployment,Post-Launch Handover

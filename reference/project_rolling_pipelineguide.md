@@ -75,7 +75,7 @@ PROJECT_NUMBER=1 CLIENT_NAME="Client Alpha" npm run populate
 ```
 
 **This creates:**
-- 32 tasks organized in 10 phases
+- 33 activities organized in 11 phases
 - Labels for categorization
 - Custom fields (Status, Phase, Priority, etc.)
 - Developer assignment options
@@ -87,8 +87,8 @@ PROJECT_NUMBER=1 CLIENT_NAME="Client Alpha" npm run populate
 3. Open "Client Alpha - WordPress Development"
 
 **You'll see:**
-- All 32 tasks in "Backlog" status
-- Tasks grouped by 10 phases
+- All 33 activities in "Backlog" status
+- Activities grouped by 11 phases
 - Ready to start working!
 
 ### Step 7: Start Working on Project #1
@@ -102,7 +102,7 @@ PROJECT_NUMBER=1 CLIENT_NAME="Client Alpha" npm run populate
 5. Move task to "In Progress"
 6. Complete the task → Move to "Done"
 
-**Continue this pattern** through all 10 phases over the next 20 days.
+**Continue this pattern** through all 11 phases over the next 20 days.
 
 ---
 
@@ -136,7 +136,7 @@ PROJECT_NUMBER=2 CLIENT_NAME="Client Beta" npm run populate
 
 1. Go to GitHub Projects
 2. Open "Client Beta - WordPress Development"
-3. All 32 tasks are ready
+3. All 33 activities are ready
 
 ### Step 11: Start Working on Project #2 (Day 2)
 
@@ -177,12 +177,12 @@ PROJECT_NUMBER=2 CLIENT_NAME="Client Beta" npm run populate
 ```
 PROJECT ALPHA (Day 5):
 ├── Phase 2: Planning (In Progress)
-├── Tasks Done: 5/32
+├── Activities Done: 5/33
 └── Developer: Dev 1 working on "Solution Architecture"
 
 PROJECT BETA (Day 4):
 ├── Phase 1: Discovery (Wrapping up)
-├── Tasks Done: 3/32
+├── Activities Done: 3/33
 └── Developer: Dev 2 working on "Technical Scoping"
 ```
 

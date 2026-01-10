@@ -1,10 +1,10 @@
 # WordPress Project Activity List
 
-**Total Activities:** 32
+**Total Activities:** 33
 **Project Duration:** 20 working days
-**Project Phases:** 10
+**Project Phases:** 11
 
-## Phase 1: Discovery & Requirements (2 days | 10%)
+## Phase 1: Discovery (2 days | 10%)
 
 ### Activity 1: Client Onboarding & Kickoff Call
 - **Time Allocation:** 3%
@@ -29,20 +29,7 @@
   - Document form requirements
   - Identify membership/booking needs
 
-### Activity 3: Technical Scoping
-- **Time Allocation:** 3%
-- **Priority:** High
-- **Description:** Hosting requirements validation, domain & SSL setup planning, performance requirements, security requirements
-- **Checklist:**
-  - Validate Hostinger cPanel specs
-  - Plan domain & SSL setup
-  - Define performance requirements
-  - Document security requirements
-  - Estimate traffic expectations
-
-## Phase 2: Planning & Architecture (1.5 days | 8%)
-
-### Activity 4: Project Planning
+### Activity 3: Project Planning
 - **Time Allocation:** 3%
 - **Priority:** Critical
 - **Description:** Milestone definition, resource allocation, communication protocol setup, risk assessment
@@ -52,6 +39,19 @@
   - Setup communication channels
   - Create RACI matrix
   - Conduct risk assessment
+
+## Phase 2: Planning (1.5 days | 8%)
+
+### Activity 4: Technical Scoping
+- **Time Allocation:** 3%
+- **Priority:** High
+- **Description:** Hosting requirements validation, domain & SSL setup planning, performance requirements, security requirements
+- **Checklist:**
+  - Validate Hostinger cPanel specs
+  - Plan domain & SSL setup
+  - Define performance requirements
+  - Document security requirements
+  - Estimate traffic expectations
 
 ### Activity 5: Solution Architecture
 - **Time Allocation:** 3%
@@ -64,7 +64,7 @@
   - Design URL structure
   - Plan database schema
 
-### Activity 6: Technical Specification Document
+### Activity 6: Technical Spec Docs
 - **Time Allocation:** 2%
 - **Priority:** High
 - **Description:** Sitemap creation, wireframe approval workflow, feature specification sign-off
@@ -86,22 +86,16 @@
   - Position logo and branding assets
   - Create style guide document
 
-### Activity 8: UI/UX Design - Homepage
-- **Time Allocation:** 3%
+### Activity 8: UI/UX Design - All Pages
+- **Time Allocation:** 7%
 - **Priority:** Critical
-- **Description:** Homepage mockup in Figma/Adobe XD with mobile responsive design specs
+- **Description:** Complete UI/UX design for homepage and all inner pages in Figma/Adobe XD with mobile responsive design specs
 - **Checklist:**
   - Create desktop homepage mockup
   - Create tablet homepage mockup
   - Create mobile homepage mockup
   - Design hero section
   - Design navigation
-
-### Activity 9: UI/UX Design - Inner Pages
-- **Time Allocation:** 4%
-- **Priority:** High
-- **Description:** Inner page templates design, navigation & user flow mapping
-- **Checklist:**
   - Design about page template
   - Design services/products template
   - Design contact page template
@@ -109,7 +103,7 @@
   - Design single post template
   - Map user flow
 
-### Activity 10: Design Review & Approval
+### Activity 9: Design Review & Approval
 - **Time Allocation:** 3%
 - **Priority:** Critical
 - **Description:** Client presentation, revision cycles (2 rounds typical), final design sign-off
@@ -122,9 +116,9 @@
   - Implement revisions - Round 2
   - Get final sign-off
 
-## Phase 4: Environment Setup (1 day | 5%)
+## Phase 4: Environment (1 day | 5%)
 
-### Activity 11: Hostinger/cPanel Configuration
+### Activity 10: Hostinger/cPanel Configuration
 - **Time Allocation:** 2%
 - **Priority:** Critical
 - **Description:** Domain pointing, DNS configuration, SSL certificate installation, PHP version configuration, MySQL database creation
@@ -135,7 +129,7 @@
   - Set PHP version to 8.0+
   - Create MySQL database
 
-### Activity 12: WordPress Installation
+### Activity 11: WordPress/CMS Installation
 - **Time Allocation:** 2%
 - **Priority:** Critical
 - **Description:** Fresh WP installation via Softaculous, admin credentials setup, staging environment
@@ -146,7 +140,7 @@
   - Configure wp-config.php security
   - Initialize Git (optional)
 
-### Activity 13: Development Environment Sync
+### Activity 12: Development Environment Sync
 - **Time Allocation:** 1%
 - **Priority:** Medium
 - **Description:** Local dev sync (LocalWP/DevKinsta), backup automation setup
@@ -155,24 +149,18 @@
   - Sync with staging
   - Configure backup automation
 
-## Phase 5: Backend Development (4 days | 20%)
+## Phase 5: Backend (4 days | 20%)
 
-### Activity 14: Theme Setup & Configuration
-- **Time Allocation:** 5%
+### Activity 13: Theme Setup, Essential Plugin Installation & Configuration
+- **Time Allocation:** 8%
 - **Priority:** Critical
-- **Description:** Theme installation, child theme creation, theme options, header/footer setup, menu structure
+- **Description:** Theme installation, child theme creation, essential plugins setup including page builder, SEO, forms, security, performance, backup
 - **Checklist:**
   - Install parent theme
   - Create child theme
   - Configure theme options
   - Setup header/footer
   - Create menu structure
-
-### Activity 15: Essential Plugin Installation
-- **Time Allocation:** 3%
-- **Priority:** Critical
-- **Description:** Install and configure: page builder, SEO, forms, security, performance, backup plugins
-- **Checklist:**
   - Install Elementor/Gutenberg
   - Configure Yoast SEO
   - Setup WPForms/Contact Form 7
@@ -180,7 +168,7 @@
   - Configure caching plugin
   - Setup UpdraftPlus backup
 
-### Activity 16: Custom Functionality Development
+### Activity 14: Custom Functionality Development
 - **Time Allocation:** 6%
 - **Priority:** High
 - **Description:** Custom post types, custom fields (ACF), shortcodes, custom widgets, API integrations
@@ -192,7 +180,7 @@
   - Develop custom widgets
   - Integrate third-party APIs
 
-### Activity 17: E-Commerce Setup (WooCommerce)
+### Activity 15: E-Commerce Setup (WooCommerce)
 - **Time Allocation:** 6%
 - **Priority:** High
 - **Description:** WooCommerce configuration, payment gateway integration, shipping, tax configuration, inventory
@@ -206,12 +194,12 @@
   - Configure inventory management
   - Test checkout flow
 
-## Phase 6: Frontend Development (4 days | 20%)
+## Phase 6: Frontend (4 days | 20%)
 
-### Activity 18: Page Building - Core Pages
-- **Time Allocation:** 8%
+### Activity 16: Page Building - Core 7 Secondary Pages
+- **Time Allocation:** 13%
 - **Priority:** Critical
-- **Description:** Homepage, About, Services/Products, Contact, Blog template construction
+- **Description:** Complete page building for homepage, core pages, and all secondary pages including policies, templates, and error pages
 - **Checklist:**
   - Build homepage
   - Build about page
@@ -219,12 +207,6 @@
   - Build contact page with forms
   - Build blog listing page
   - Build single post template
-
-### Activity 19: Page Building - Secondary Pages
-- **Time Allocation:** 5%
-- **Priority:** High
-- **Description:** Policies, terms, FAQ, landing pages, category/archive templates, 404 page
-- **Checklist:**
   - Build privacy policy page
   - Build terms & conditions page
   - Build FAQ page
@@ -233,7 +215,7 @@
   - Build 404 error page
   - Build search results page
 
-### Activity 20: Responsive Implementation
+### Activity 17: Responsive Implementation
 - **Time Allocation:** 4%
 - **Priority:** Critical
 - **Description:** Tablet breakpoint adjustments, mobile optimization, touch-friendly navigation
@@ -244,7 +226,7 @@
   - Setup mobile menu
   - Test all device viewports
 
-### Activity 21: Animation & Interactions
+### Activity 18: Animation & Interactions
 - **Time Allocation:** 3%
 - **Priority:** Medium
 - **Description:** Scroll animations, hover effects, loading transitions, micro-interactions
@@ -255,10 +237,10 @@
   - Add micro-interactions
   - Test performance impact
 
-## Phase 7: Content Population (1.5 days | 7%)
+## Phase 7: Content (1.5 days | 7%)
 
-### Activity 22: Content Migration/Entry
-- **Time Allocation:** 4%
+### Activity 19: Content Migration/Entry
+- **Time Allocation:** 3%
 - **Priority:** High
 - **Description:** Text content insertion, image optimization & upload (WebP), media library organization
 - **Checklist:**
@@ -268,8 +250,8 @@
   - Organize media library
   - Add alt text to all images
 
-### Activity 23: Content Formatting & SEO
-- **Time Allocation:** 3%
+### Activity 20: Content Formatting & SEO
+- **Time Allocation:** 2%
 - **Priority:** High
 - **Description:** Typography consistency, spacing alignment, CTA placement, internal linking, meta data
 - **Checklist:**
@@ -280,10 +262,22 @@
   - Add meta titles & descriptions
   - Configure heading hierarchy
 
-## Phase 8: Testing (2 days | 10%)
+### Activity 21: Quality Assurance
+- **Time Allocation:** 2%
+- **Priority:** High
+- **Description:** Content quality review, proofreading, link validation, visual consistency check
+- **Checklist:**
+  - Proofread all content
+  - Verify spelling and grammar
+  - Check link accuracy
+  - Validate visual consistency
+  - Review content hierarchy
+  - Confirm brand voice alignment
 
-### Activity 24: Functional Testing
-- **Time Allocation:** 3%
+## Phase 8: Testing (1 day | 5%)
+
+### Activity 22: Functional Testing
+- **Time Allocation:** 2%
 - **Priority:** Critical
 - **Description:** All links verification, form submission testing, e-commerce checkout flow, search functionality
 - **Checklist:**
@@ -294,20 +288,31 @@
   - Test search functionality
   - Test user registration/login
 
-### Activity 25: Cross-Browser Testing
+### Activity 23: Cross-Browser Testing
 - **Time Allocation:** 2%
 - **Priority:** High
-- **Description:** Chrome, Firefox, Safari, Edge testing on desktop and mobile browsers
+- **Description:** Chrome, Firefox, Safari, Edge testing on desktop browsers
 - **Checklist:**
-  - Test on Chrome
-  - Test on Firefox
-  - Test on Safari
-  - Test on Edge
-  - Test on iOS Safari
-  - Test on Chrome Android
+  - Test on Chrome desktop
+  - Test on Firefox desktop
+  - Test on Safari desktop
+  - Test on Edge desktop
   - Fix browser-specific CSS issues
 
-### Activity 26: Performance Testing
+### Activity 24: Mobile Browser Testing
+- **Time Allocation:** 1%
+- **Priority:** High
+- **Description:** Mobile browser testing on iOS and Android devices
+- **Checklist:**
+  - Test on iOS Safari
+  - Test on Chrome Android
+  - Test responsive layouts
+  - Verify touch interactions
+  - Fix mobile-specific issues
+
+## Phase 9: Functionality (1 day | 5%)
+
+### Activity 25: Performance Testing
 - **Time Allocation:** 2%
 - **Priority:** Critical
 - **Description:** Google PageSpeed (target: 90+), GTmetrix analysis, Core Web Vitals optimization
@@ -319,7 +324,7 @@
   - Verify lazy loading
   - Target: 90+ mobile score
 
-### Activity 27: Security Testing
+### Activity 26: Security Testing
 - **Time Allocation:** 2%
 - **Priority:** Critical
 - **Description:** Vulnerability scan, login security verification, file permissions, SSL verification
@@ -330,7 +335,7 @@
   - Verify SSL across all pages
   - Test brute force protection
 
-### Activity 28: SEO Audit
+### Activity 27: SEO Audit
 - **Time Allocation:** 1%
 - **Priority:** High
 - **Description:** Meta titles/descriptions, heading hierarchy, schema markup, XML sitemap
@@ -341,10 +346,10 @@
   - Generate XML sitemap
   - Submit to search console
 
-## Phase 9: User Acceptance Testing (0.5 days | 3%)
+## Phase 10: User Acceptance (0.5 days | 3%)
 
-### Activity 29: Client Review Session
-- **Time Allocation:** 2%
+### Activity 28: Client Review Session
+- **Time Allocation:** 1%
 - **Priority:** Critical
 - **Description:** Guided walkthrough with client, feature demonstration, content accuracy verification
 - **Checklist:**
@@ -355,7 +360,7 @@
   - Verify content accuracy
   - Collect feedback
 
-### Activity 30: UAT Feedback Implementation
+### Activity 29: UAT Feedback Implementation
 - **Time Allocation:** 1%
 - **Priority:** Critical
 - **Description:** Punch list creation, minor revisions execution, final approval sign-off
@@ -365,11 +370,22 @@
   - Re-verify with client
   - Get final sign-off
 
+### Activity 30: Handover & Documentation
+- **Time Allocation:** 1%
+- **Priority:** High
+- **Description:** Prepare comprehensive documentation, training materials, and handover package for client
+- **Checklist:**
+  - Prepare handover documentation
+  - Create training materials
+  - Document admin procedures
+  - Compile credentials package
+  - Prepare maintenance guidelines
+  - Schedule handover meeting
 
-## Phase 10: Deployment & Launch (0.5 days | 2%)
+## Phase 11: Deployment (0.5 days | 2%)
 
 ### Activity 31: Pre-Launch Checklist
-- **Time Allocation:** 1%
+- **Time Allocation:** 0.7%
 - **Priority:** Critical
 - **Description:** Favicon, analytics, search console, social meta tags, robots.txt, htaccess review
 - **Checklist:**
@@ -381,35 +397,37 @@
   - Review robots.txt
   - Review .htaccess
 
-### Activity 32: Go-Live Execution
-- **Time Allocation:** 0.5%
+### Activity 32: Go-Live Monitoring
+- **Time Allocation:** 0.7%
 - **Priority:** Critical
-- **Description:** Staging to production migration, DNS propagation monitoring, cache purge, final verification
+- **Description:** Staging to production migration, DNS propagation monitoring, cache management, live verification
 - **Checklist:**
   - Migrate staging to production
   - Monitor DNS propagation
   - Purge all caches
   - Warm cache
   - Final live verification
+  - Monitor site performance post-launch
 
 ### Activity 33: Post-Launch Handover
-- **Time Allocation:** 0.5%
+- **Time Allocation:** 0.6%
 - **Priority:** High
-- **Description:** Client handover documentation, admin training session, backup verification
+- **Description:** Client handover session, admin training, backup verification, project closure
 - **Checklist:**
-  - Prepare handover documentation
-  - Schedule training session
-  - Conduct admin training
-  - Verify backup system
-  - Provide login credentials
-  - Close project
+  - Conduct final handover session
+  - Complete admin training
+  - Verify backup system operational
+  - Provide all login credentials
+  - Deliver final documentation
+  - Close project officially
 
 ## Summary Statistics
 
-- **Total Activities:** 33 (Note: Activity 17 is conditional for E-Commerce projects)
-- **Critical Priority:** 20 activities
-- **High Priority:** 11 activities
-- **Medium Priority:** 2 activities
+- **Total Activities:** 33 (Note: Activity 15 is conditional for E-Commerce projects)
+- **Total Phases:** 11
+- **Critical Priority:** 16 activities
+- **High Priority:** 14 activities
+- **Medium Priority:** 3 activities
 - **Total Time Allocation:** 100%
 - **Total Project Duration:** 20 working days
 

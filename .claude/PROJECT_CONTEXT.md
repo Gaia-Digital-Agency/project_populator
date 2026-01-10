@@ -13,8 +13,8 @@ This is an automation tool for creating and managing GitHub Projects V2 boards s
 - Client communication gaps about project status
 
 **Solution Provided:** Automated creation of standardized GitHub Project boards with:
-- 10 development phases (Discovery → Launch)
-- 32 pre-configured tasks with checklists
+- 11 development phases (Discovery → Deployment)
+- 33 pre-configured activities with checklists
 - Custom fields for tracking (Status, Phase, Priority, Developer, etc.)
 - 30+ categorization labels
 
@@ -36,7 +36,7 @@ github_populator/
 │   ├── report-single.js            # Generate markdown report for 1 project
 │   ├── report-all.js               # Generate portfolio report
 │   └── config/
-│       └── wordpress-project.config.js  # WordPress 10-phase template
+│       └── wordpress-project.config.js  # WordPress 11-phase template
 ├── reference/                      # All markdown documentation
 │   ├── guide_simple_use.md         # Quick start guide
 │   ├── guide_github_multi_account.md  # Multi-account SSH setup
@@ -58,13 +58,13 @@ github_populator/
 ## Key Features
 
 ### 1. WordPress Development Template
-- **10 Phases:** Discovery (10%) → Planning (8%) → Design (15%) → Environment (5%) → Backend (20%) → Frontend (20%) → Content (7%) → Testing (10%) → UAT (3%) → Launch (2%)
-- **32 Tasks:** Each with descriptions, checklists, priority, time allocation
+- **11 Phases:** Discovery (10%) → Planning (8%) → Design (15%) → Environment (5%) → Backend (20%) → Frontend (20%) → Content (7%) → Testing (5%) → Functionality (5%) → User Acceptance (3%) → Deployment (2%)
+- **33 Activities:** Each with descriptions, checklists, priority, time allocation
 - **20-Day Cycle:** Optimized for 1-month project completion
 
 ### 2. Custom Fields
 - Status: Backlog, To Do, In Progress, In Review, Done, Blocked
-- Phase: 1-10 (Discovery through Launch)
+- Phase: 1-11 (Discovery through Deployment)
 - Priority: Critical, High, Medium, Low
 - Developer: 6-developer team structure
 - Time %: Percentage allocation
@@ -139,7 +139,7 @@ npm run report-all
 2. **Client Communication:** Share read-only project board access
 3. **Team Management:** Track developer workload across projects
 4. **Status Reporting:** Generate weekly portfolio reports
-5. **Standardization:** Ensure all projects follow same 10-phase process
+5. **Standardization:** Ensure all projects follow same 11-phase process
 
 ## Development Notes
 
