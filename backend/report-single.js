@@ -195,12 +195,12 @@ function generateMarkdown(project) {
   const progressPercent = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
 
   let md = `# Project Report: ${project.title}\n\n`;
+  md += `🔗 **[VIEW PROJECT BOARD](${project.url})**\n\n`;
   md += `**Generated:** ${timestamp}\n\n`;
   md += `**Project Number:** #${project.number}\n\n`;
   md += `**Status:** ${project.closed ? '🔴 Closed' : '🟢 Open'}\n\n`;
   md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()}\n\n`;
   md += `**Last Updated:** ${new Date(project.updatedAt).toLocaleDateString()}\n\n`;
-  md += `**URL:** [View Project](${project.url})\n\n`;
 
   md += `---\n\n`;
 
@@ -221,6 +221,34 @@ function generateMarkdown(project) {
   md += `**Progress:** ${progressBar} ${progressPercent}%\n\n`;
 
   md += `---\n\n`;
+
+  // In Progress Items
+  if (byStatus['In Progress'] && byStatus['In Progress'].length > 0) {
+    md += `## 🔄 Currently In Progress\n\n`;
+    byStatus['In Progress'].forEach(item => {
+      const issue = item.content;
+      const phase = getFieldValue(item, 'Phase') || 'No Phase';
+      const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+      const priority = getFieldValue(item, 'Priority') || 'N/A';
+      const priorityIcon = priority === 'Critical' ? '🔴' : priority === 'High' ? '🟠' : priority === 'Medium' ? '🟡' : '🟢';
+      md += `- ${priorityIcon} **[#${issue.number}](${issue.url})** ${issue.title}\n`;
+      md += `  - Phase: ${phase} | Developer: ${developer} | Priority: ${priority}\n`;
+    });
+    md += `\n---\n\n`;
+  }
+
+  // Blocked Items
+  if (byStatus['Blocked'] && byStatus['Blocked'].length > 0) {
+    md += `## 🚫 Blocked Items ⚠️\n\n`;
+    byStatus['Blocked'].forEach(item => {
+      const issue = item.content;
+      const phase = getFieldValue(item, 'Phase') || 'No Phase';
+      const priority = getFieldValue(item, 'Priority') || 'N/A';
+      md += `- **[#${issue.number}](${issue.url})** ${issue.title}\n`;
+      md += `  - Phase: ${phase} | Priority: ${priority}\n`;
+    });
+    md += `\n---\n\n`;
+  }
 
   // Status Breakdown
   md += `## 📋 Status Breakdown\n\n`;

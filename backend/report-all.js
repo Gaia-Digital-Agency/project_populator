@@ -123,6 +123,8 @@ function analyzeProject(project) {
   const phases = {};
   const priorities = {};
   const developers = {};
+  const inProgressItems = [];
+  const blockedItems = [];
 
   items.forEach(item => {
     const status = getFieldValue(item, 'Status') || 'Unknown';
@@ -131,8 +133,14 @@ function analyzeProject(project) {
     const developer = getFieldValue(item, 'Developer') || 'Unassigned';
 
     if (status === 'Done') completed++;
-    else if (status === 'In Progress') inProgress++;
-    else if (status === 'Blocked') blocked++;
+    else if (status === 'In Progress') {
+      inProgress++;
+      inProgressItems.push(item);
+    }
+    else if (status === 'Blocked') {
+      blocked++;
+      blockedItems.push(item);
+    }
     else if (status === 'To Do') todo++;
     else if (status === 'Backlog') backlog++;
 
@@ -155,7 +163,9 @@ function analyzeProject(project) {
     currentPhase,
     phases,
     priorities,
-    developers
+    developers,
+    inProgressItems,
+    blockedItems
   };
 }
 
@@ -235,7 +245,7 @@ function generateMarkdown(projects) {
     .sort((a, b) => a.project.number - b.project.number)
     .forEach(({ project, analysis }) => {
       md += `### Project #${project.number}: ${project.title}\n\n`;
-      md += `**URL:** [View Project](${project.url})\n\n`;
+      md += `🔗 **[VIEW PROJECT BOARD](${project.url})**\n\n`;
       md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()} | **Updated:** ${new Date(project.updatedAt).toLocaleDateString()}\n\n`;
 
       // Progress Summary
@@ -253,6 +263,29 @@ function generateMarkdown(projects) {
         md += `| **Blocked** | **${analysis.blocked}** ⚠️ |\n`;
       }
       md += `| **Total** | **${analysis.totalTasks}** |\n\n`;
+
+      // In Progress Items
+      if (analysis.inProgressItems.length > 0) {
+        md += `#### 🔄 Currently In Progress\n\n`;
+        analysis.inProgressItems.forEach(item => {
+          const phase = getFieldValue(item, 'Phase') || 'No Phase';
+          const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+          const priority = getFieldValue(item, 'Priority') || '';
+          const priorityIcon = priority === 'Critical' ? '🔴' : priority === 'High' ? '🟠' : priority === 'Medium' ? '🟡' : '🟢';
+          md += `- ${priorityIcon} [#${item.content.number}](${item.content.url}) ${item.content.title} *(${phase} - ${developer})*\n`;
+        });
+        md += `\n`;
+      }
+
+      // Blocked Items
+      if (analysis.blockedItems.length > 0) {
+        md += `#### 🚫 Blocked Items ⚠️\n\n`;
+        analysis.blockedItems.forEach(item => {
+          const phase = getFieldValue(item, 'Phase') || 'No Phase';
+          md += `- [#${item.content.number}](${item.content.url}) ${item.content.title} *(${phase})*\n`;
+        });
+        md += `\n`;
+      }
 
       // Phase Distribution
       md += `#### Phase Distribution\n\n`;
