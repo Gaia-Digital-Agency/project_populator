@@ -2,7 +2,7 @@ name: Daily Project Report
 
 on:
   schedule:
-    - cron: '0 19 * * *' # 7:00 PM UTC
+    - cron: '0 19 * * *' 
   workflow_dispatch: 
 
 jobs:
@@ -29,22 +29,57 @@ jobs:
         run: |
           npm run report-all > report.md
 
-      - name: Update Existing Discussion Comment
+      - name: Find and Update Comment
         env:
           GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
-          # This is the GraphQL ID for the specific comment you want to overwrite
-          # You can find this by running the 'gh' command in Step 1
-          COMMENT_ID: "DC_kwDONY9_884A_m_X" 
+          ORG: "Gaia-Digital-Agency"
         run: |
-          echo "Updating the Weekly Project Report comment..."
-          
-          gh api graphql -f query='
-            mutation($commentId: ID!, $body: String!) {
-              updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
-                comment {
-                  url
+          # 1. This query finds the ID of the FIRST comment in Discussion #2
+          # It looks inside the .github repo which is the standard for Org discussions
+          COMMENT_ID=$(gh api graphql -f query='
+            query($org: String!) {
+              organization(login: $org) {
+                repository(name: ".github") {
+                  discussion(number: 2) {
+                    comments(first: 1) {
+                      nodes {
+                        id
+                      }
+                    }
+                  }
                 }
               }
-            }' -f commentId=$COMMENT_ID -F body=@report.md
-          
-          echo "Report updated successfully!"
+            }' -f org=$ORG --jq '.data.organization.repository.discussion.comments.nodes[0].id')
+
+          if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
+            echo "No existing comment found to update. Adding a new comment instead..."
+            
+            # Fallback: If no comment exists, we create the first one
+            DISCUSSION_ID=$(gh api graphql -f query='
+              query($org: String!) {
+                organization(login: $org) {
+                  repository(name: ".github") {
+                    discussion(number: 2) {
+                      id
+                    }
+                  }
+                }
+              }' -f org=$ORG --jq '.data.organization.repository.discussion.id')
+
+            gh api graphql -f query='
+              mutation($discussionId: ID!, $body: String!) {
+                addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+                  comment { id }
+                }
+              }' -f discussionId=$DISCUSSION_ID -F body=@report.md
+          else
+            echo "Found Comment ID: $COMMENT_ID. Updating content..."
+            
+            # 2. Update the found comment with the new report
+            gh api graphql -f query='
+              mutation($commentId: ID!, $body: String!) {
+                updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
+                  comment { url }
+                }
+              }' -f commentId=$COMMENT_ID -F body=@report.md
+          fi
