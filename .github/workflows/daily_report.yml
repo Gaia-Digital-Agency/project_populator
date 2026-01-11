@@ -1,16 +1,40 @@
-- name: Run Report Script
+name: Daily Project Report
+
+on:
+  schedule:
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+
+jobs:
+  post-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Report Script
         env:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
-          # Run the script
+          # 1. Run your script
           npm run report-all
           
-          # Use a 'wildcard' to find the file in the reports folder 
-          # and move it to a standard name 'final_report.md'
+          # 2. Find the dated file in the reports/ folder and rename it
+          # This handles files like: reports/all_projects_portfolio_2026-01-11.md
           mv reports/all_projects_portfolio_*.md final_report.md
           
-          echo "Found and renamed report file."
+          echo "Found and prepared final_report.md"
 
       - name: Update Discussion Comment
         env:
@@ -19,7 +43,7 @@
           REPO: ".github"
           DISCUSSION_NUM: 1
         run: |
-          # Fetch IDs
+          # 1. Fetch Discussion and Comment IDs
           DISCUSSION_DATA=$(gh api graphql -f query='
             query($org: String!, $repo: String!, $num: Int!) {
               repository(owner: $org, name: $repo) {
@@ -35,8 +59,9 @@
           DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
           COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
 
-          # We now use the standard name 'final_report.md'
+          # 2. Update existing comment or create a new one
           if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
+            echo "Posting new report..."
             gh api graphql -f query='
               mutation($discussionId: ID!, $body: String!) {
                 addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
@@ -44,6 +69,7 @@
                 }
               }' -f discussionId=$DISCUSSION_ID -F body=@final_report.md
           else
+            echo "Updating existing report..."
             gh api graphql -f query='
               mutation($commentId: ID!, $body: String!) {
                 updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
