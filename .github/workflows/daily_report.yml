@@ -29,43 +29,43 @@ jobs:
         run: |
           npm run report-all > report.md
 
-      - name: Find and Update Comment
+      - name: Find and Update Discussion
         env:
           GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
           ORG: "Gaia-Digital-Agency"
+          TITLE: "Web Dev Team Weekly Project Report"
         run: |
-          # 1. This query finds the ID of the FIRST comment in Discussion #2
-          # It looks inside the .github repo which is the standard for Org discussions
-          COMMENT_ID=$(gh api graphql -f query='
-            query($org: String!) {
+          echo "Searching for Discussion: $TITLE"
+
+          # 1. Search for the Discussion ID by Title across the Org
+          # This works even if the discussion is in a hidden .github repo
+          DISCUSSION_DATA=$(gh api graphql -f query='
+            query($org: String!, $title: String!) {
               organization(login: $org) {
                 repository(name: ".github") {
-                  discussion(number: 2) {
-                    comments(first: 1) {
-                      nodes {
-                        id
+                  discussions(first: 10) {
+                    nodes {
+                      id
+                      title
+                      comments(first: 1) {
+                        nodes { id }
                       }
                     }
                   }
                 }
               }
-            }' -f org=$ORG --jq '.data.organization.repository.discussion.comments.nodes[0].id')
+            }' -f org="$ORG" --jq ".data.organization.repository.discussions.nodes[] | select(.title==\"$TITLE\")")
 
-          if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
-            echo "No existing comment found to update. Adding a new comment instead..."
-            
-            # Fallback: If no comment exists, we create the first one
-            DISCUSSION_ID=$(gh api graphql -f query='
-              query($org: String!) {
-                organization(login: $org) {
-                  repository(name: ".github") {
-                    discussion(number: 2) {
-                      id
-                    }
-                  }
-                }
-              }' -f org=$ORG --jq '.data.organization.repository.discussion.id')
+          DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
+          COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
 
+          if [ -z "$DISCUSSION_ID" ] || [ "$DISCUSSION_ID" == "null" ]; then
+            echo "Error: Could not find Discussion with title '$TITLE'. Please ensure the .github repo exists and contains this discussion."
+            exit 1
+          fi
+
+          if [ -z "$COMMENT_ID" ]; then
+            echo "No comment found. Creating a new one..."
             gh api graphql -f query='
               mutation($discussionId: ID!, $body: String!) {
                 addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
@@ -73,9 +73,7 @@ jobs:
                 }
               }' -f discussionId=$DISCUSSION_ID -F body=@report.md
           else
-            echo "Found Comment ID: $COMMENT_ID. Updating content..."
-            
-            # 2. Update the found comment with the new report
+            echo "Updating existing comment (ID: $COMMENT_ID)..."
             gh api graphql -f query='
               mutation($commentId: ID!, $body: String!) {
                 updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
