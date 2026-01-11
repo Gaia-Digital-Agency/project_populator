@@ -27,55 +27,64 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
-          # 1. Run the report script
+          # Run the script
           npm run report-all
           
-          # 2. Find and rename the dated report file
+          # Move dated report to standard filename
           mv reports/all_projects_portfolio_*.md final_report.md
           
-          # 3. Append a team mention and timestamp at the bottom
+          # Append team mention and timestamp
           echo -e "\n\n---\n**Last Updated:** $(date)\n**Cc:** @Gaia-Digital-Agency/developers" >> final_report.md
-          
-          echo "Report prepared with team mention."
 
-      - name: Update Discussion Comment
+      - name: Clear Chat and Post Fresh Report
         env:
           GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
           ORG: "Gaia-Digital-Agency"
           REPO: ".github"
           DISCUSSION_NUM: 1
         run: |
-          # Fetch Discussion and Comment IDs
+          echo "Fetching IDs for Discussion #$DISCUSSION_NUM..."
+
+          # 1. Get the Discussion ID and all current comment IDs
           DISCUSSION_DATA=$(gh api graphql -f query='
             query($org: String!, $repo: String!, $num: Int!) {
               repository(owner: $org, name: $repo) {
                 discussion(number: $num) {
                   id
-                  comments(first: 1) {
+                  comments(first: 100) {
                     nodes { id }
                   }
                 }
               }
-            }' -f org="$ORG" -f repo="$REPO" -F num=$DISCUSSION_NUM --jq '.data.repository.discussion')
+            }' -f org="$ORG" -f repo="$REPO" -F num=$DISCUSSION_NUM)
 
-          DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
-          COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
-
-          # Update existing comment or create a new one
-          if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
-            echo "Posting new report..."
-            gh api graphql -f query='
-              mutation($discussionId: ID!, $body: String!) {
-                addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
-                  comment { url }
-                }
-              }' -f discussionId=$DISCUSSION_ID -F body=@final_report.md
-          else
-            echo "Updating existing report..."
-            gh api graphql -f query='
-              mutation($commentId: ID!, $body: String!) {
-                updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
-                  comment { url }
-                }
-              }' -f commentId=$COMMENT_ID -F body=@final_report.md
+          DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.data.repository.discussion.id // empty')
+          
+          if [ -z "$DISCUSSION_ID" ] || [ "$DISCUSSION_ID" == "null" ]; then
+            echo "Error: Could not find Discussion #$DISCUSSION_NUM"
+            exit 1
           fi
+
+          # 2. Extract Comment IDs and delete them one by one
+          COMMENT_IDS=$(echo "$DISCUSSION_DATA" | jq -r '.data.repository.discussion.comments.nodes[].id // empty')
+
+          for ID in $COMMENT_IDS; do
+            if [ ! -z "$ID" ] && [ "$ID" != "null" ]; then
+              echo "Deleting old content: $ID"
+              gh api graphql -f query='
+                mutation($id: ID!) {
+                  deleteDiscussionComment(input: {id: $id}) {
+                    clientMutationId
+                  }
+                }' -f id=$ID
+            fi
+          done
+
+          # 3. Post the fresh report
+          echo "Posting the fresh daily report..."
+          gh api graphql -f query='
+            mutation($discussionId: ID!, $body: String!) {
+              addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+                comment { url }
+              }
+            }' -f discussionId=$DISCUSSION_ID -F body=@final_report.md
