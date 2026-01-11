@@ -2,10 +2,8 @@ name: Daily Project Report
 
 on:
   schedule:
-    # 19:00 UTC is 7:00 PM UTC. 
-    # Adjust this if you want 7:00 PM in a specific timezone (e.g., '0 23 * * *' for 7PM EST)
-    - cron: '0 19 * * *'
-  workflow_dispatch: # Allows manual testing
+    - cron: '0 19 * * *' # 7:00 PM UTC
+  workflow_dispatch: # This adds the "Run workflow" button manually
 
 jobs:
   post-report:
@@ -32,11 +30,11 @@ jobs:
 
       - name: Post Comment to Discussion
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # The node ID for discussion #2
+          # Use your PAT (REPORT_TOKEN) if you couldn't change Org settings
+          # Otherwise, use GITHUB_TOKEN
+          GH_TOKEN: ${{ secrets.REPORT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Fetch the internal GraphQL ID for the specific discussion
-          # We use the organization login and the discussion number (2)
+          # This command finds the Discussion ID for discussion #2 in your Org
           DISCUSSION_ID=$(gh api graphql -f query='
             query($org: String!, $num: Int!) {
               organization(login: $org) {
@@ -48,7 +46,7 @@ jobs:
               }
             }' -f org="Gaia-Digital-Agency" -F num=2 --jq '.data.organization.repository.discussion.id')
 
-          # 2. Post the content of report.md as a new comment
+          # Post the content of the generated report.md
           gh api graphql -f query='
             mutation($discussionId: ID!, $body: String!) {
               addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
