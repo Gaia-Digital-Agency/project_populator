@@ -1,35 +1,40 @@
-| Phase | Phase Descriptiopn | Phase % | Activity | Activity Description | Activity % | Activity time |
+# Web Dev Activity & Flow Overview
+
+| Phase | Phase Descriptiopn | Phase % | Activity | Activity Description | Weightage % | Activity time (days)|
 |---|---|---|---|---|---|---|
-| 1 | Discovery | 10% | 1 | Client Onboarding & Kickoff Call | 3% | 0.60 days |
-| 1 | Discovery | 10% | 2 | Requirements Gathering | 4% | 0.80 days |
-| 1 | Discovery | 10% | 3 | Technical Scoping | 3% | 0.60 days |
-| 2 | Planning  | 8% | 4 | Project Planning | 3% | 0.60 days |
-| 2 | Planning  | 8% | 5 | Solution Architecture | 3% | 0.60 days |
-| 2 | Planning  | 8% | 6 | Technical Specification Document | 2% | 0.40 days |
-| 3 | Design | 15% | 7 |Visual Identity Setup | 5% | 1.00 days |
-| 3 | Design | 15% | 8 | UI/UX Design - Homepage | 3% | 0.60 days |
-| 3 | Design | 15% | 9 | UI/UX Design - Inner Pages | 4% | 0.80 days |
-| 3 | Design | 15% | 10 | Design Review & Approval | 3% | 0.60 days |
-| 4 | Environment | 5% | 11 | Hostinger/cPanel Configuration | 2% | 0.40 days |
-| 4 | Environment | 5% | 12 | WordPress Installation | 2% | 0.40 days |
-| 4 | Environment | 5% | 13 | Development Environment Sync | 1% | 0.20 days |
-| 5 | Backend | 20% | 14 | Theme Setup & Configuration | 5% | 1.00 days |
-| 5 | Backend | 20% | 15 | Essential Plugin Installation | 3% | 0.60 days |
-| 5 | Backend | 20% | 16 | Custom Functionality Development | 6% | 1.20 days |
-| 5 | Backend | 20% | 17 | E-Commerce Setup (WooCommerce) | 6% | 1.20 days |
-| 6 | Frontend | 20% | 18 | Page Building - Core Pages | 8% | 1.60 days |
-| 6 | Frontend | 20% | 19 | Page Building - Secondary Pages | 5% | 1.00 days |
-| 6 | Frontend | 20% | 21 | Responsive Implementation | 4% | 0.80 days |
-| 6 | Frontend | 20% | 22 | Animation & Interactions | 3% | 0.60 days |
-| 7 | Content | 7% | 23 | Content Migration/Entry | 4% | 0.80 days |
-| 7 | Content | 7% | 24 | Content Formatting & SEO | 3% | 0.60 days |
-| 8 | Testing | 10% | 25 | Functional Testing | 3% | 0.60 days |
-| 8 | Testing | 10% | 26 | Cross-Browser Testing | 2% | 0.40 days |
-| 8 | Testing | 10% | 27 | Performance Testing | 2% | 0.40 days |
-| 8 | Testing | 10% | 28 | Security Testing | 2% | 0.40 days |
-| 8 | Testing | 10% | 29 | SEO Audit | 1% | 0.20 days |
-| 9 | User Acceptance | 3% | 30 | Client Review Session | 2% | 0.40 days |
-| 9 | User Acceptance | 3% | 31 | UAT Feedback Implementation | 1% | 0.20 days |
-| 10 |  Deployment | 2% | 32 | Pre-Launch Checklist | 1% | 0.20 days |
-| 10 |  Deployment | 2% | 33 | Go-Live Execution | 0.5% | 0.10 days |
-| 10 |  Deployment | 2% | 34 | Post-Launch Handover | 0.5% | 0.10 days |
+| 1 | Discovery | 5% | 1 | Client Onboarding & Kickoff | 1% | 0.50 |
+| 1 | Discovery | 5% | 2 | Requirements Gathering | 1% | 0.50 |
+| 1 | Discovery | 5% | 3 | Project Planning | 1% | 0.50 |
+| 2 | Planning  | 5% | 4 | Technical Scoping| 2% | 1.0 |
+| 2 | Planning  | 5% | 5 | Solution Architecture | 2% | 1.0 |
+| 2 | Planning  | 5% | 6 | Technical Specification Document | 2% | 1.0 |
+| 3 | Design | 15% | 7 | Visual Identity Setup | 3% | 2.0 |
+| 3 | Design | 15% | 8 | UI/UX Design - All Pages | 3% | 2.0 |
+| 3 | Design | 15% | 9 | Design Review & Approva | 3% | 5.0 |
+| 4 | Environment | 5% | 11 | Hostinger/cPanel Configuration | 2% | 0.5 |
+| 4 | Environment | 5% | 12 | WordPress Installation | 2% | 0.5 |
+| 4 | Environment | 5% | 13 | Development Environment Synchronization | 3% | 0.5 |
+| 5 | Backend | 20% | 14 | Theme Setup, Plugin Installation & Configuration| 5% | 1.0 |
+| 5 | Backend | 20% | 15 | Custom Functionality Development | 5% | 2.0 |
+| 5 | Backend | 20% | 16 | E-Commerce Setup (WooCommerce) | 5% | 2.0 |
+| 6 | Frontend | 20% | 18 | Page Building - Core & Secondary Pages | 6% | 3.0 |
+| 6 | Frontend | 20% | 19 | Responsive Implementation | 6% | 2.0 |
+| 6 | Frontend | 20% | 21 | Animation & Interactions | 6% | 2.0 |
+| 7 | Content | 10% | 23 | Content Migration/Entry | 5% | 2.0 |
+| 7 | Content | 10% | 24 | Content Formatting & SEO | 5% | 2.0 |
+| 7 | Content | 10% | 24 | Quality Assurance & SEO | 5% | 1.0 |
+| 8 | Testing | 10% | 25 | Functional Testing | 3% | 1.0 |
+| 8 | Testing | 10% | 26 | Cross-Browser Testing | 3% | 1.0 |
+| 8 | Testing | 10% | 27 | PMobile Browser Testing | 3% | 1.0 |
+| 9 | Functionality | 10% | 28 | Performance Testing | 3% | 1.0 |
+| 9 | Functionality | 10% | 28 | Security Testing | 3% | 1.0 |
+| 9 | Functionality | 10% | 28 | SEO Audit | 3% | 1.0 |
+| 10 | User Acceptance | 3% | 30 | Client Review Session | 2% | 1.0 |
+| 10 | User Acceptance | 3% | 31 | UAT Feedback Implementation | 2% | 1.0 |
+| 10 | User Acceptance | 3% | 31 | Handover & Documentation | 2% | 1.0 |
+| 11 |  Deployment | 2% | 34 | Pre-Launch Checklist | 1% | 0.5 |
+| 11 |  Deployment | 2% | 34 | Go-Live Monitoring | 1% | 0.5 |
+| 11 |  Deployment | 2% | 34 | Post-Launch Handover | 1% | 0.5 days |
+
+## DESIGN PARAMETER
+### Slack: 20%, Cycle Time: 44 working days.

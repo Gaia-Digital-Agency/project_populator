@@ -1,0 +1,59 @@
+name: Daily Project Report
+
+on:
+  schedule:
+    # 19:00 UTC is 7:00 PM UTC. 
+    # Adjust this if you want 7:00 PM in a specific timezone (e.g., '0 23 * * *' for 7PM EST)
+    - cron: '0 19 * * *'
+  workflow_dispatch: # Allows manual testing
+
+jobs:
+  post-report:
+    runs-on: ubuntu-latest
+    permissions:
+      discussions: write
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Report Script
+        run: npm run report-all > report.md
+
+      - name: Post Comment to Discussion
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The node ID for discussion #2
+        run: |
+          # 1. Fetch the internal GraphQL ID for the specific discussion
+          # We use the organization login and the discussion number (2)
+          DISCUSSION_ID=$(gh api graphql -f query='
+            query($org: String!, $num: Int!) {
+              organization(login: $org) {
+                repository(name: ".github") {
+                  discussion(number: $num) {
+                    id
+                  }
+                }
+              }
+            }' -f org="Gaia-Digital-Agency" -F num=2 --jq '.data.organization.repository.discussion.id')
+
+          # 2. Post the content of report.md as a new comment
+          gh api graphql -f query='
+            mutation($discussionId: ID!, $body: String!) {
+              addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+                comment {
+                  url
+                }
+              }
+            }' -f discussionId=$DISCUSSION_ID -F body=@report.md
