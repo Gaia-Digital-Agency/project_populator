@@ -2,16 +2,13 @@ name: Daily Project Report
 
 on:
   schedule:
-    - cron: '0 19 * * *' # 7:00 PM UTC
-  workflow_dispatch: # This adds the "Run workflow" button manually
+    - cron: '0 19 * * *' 
+  workflow_dispatch: 
 
 jobs:
   post-report:
     runs-on: ubuntu-latest
-    permissions:
-      discussions: write
-      contents: read
-
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -26,15 +23,18 @@ jobs:
         run: npm install
 
       - name: Run Report Script
-        run: npm run report-all > report.md
+        # THIS IS THE FIX: Passing the token to your NPM script
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
+          GITHUB_OWNER: "Gaia-Digital-Agency"
+        run: |
+          npm run report-all > report.md
 
       - name: Post Comment to Discussion
         env:
-          # Use your PAT (REPORT_TOKEN) if you couldn't change Org settings
-          # Otherwise, use GITHUB_TOKEN
-          GH_TOKEN: ${{ secrets.REPORT_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
         run: |
-          # This command finds the Discussion ID for discussion #2 in your Org
+          # 1. Get the Discussion ID
           DISCUSSION_ID=$(gh api graphql -f query='
             query($org: String!, $num: Int!) {
               organization(login: $org) {
@@ -46,7 +46,7 @@ jobs:
               }
             }' -f org="Gaia-Digital-Agency" -F num=2 --jq '.data.organization.repository.discussion.id')
 
-          # Post the content of the generated report.md
+          # 2. Post the report.md content
           gh api graphql -f query='
             mutation($discussionId: ID!, $body: String!) {
               addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
