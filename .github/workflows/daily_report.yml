@@ -2,7 +2,7 @@ name: Daily Project Report
 
 on:
   schedule:
-    - cron: '0 19 * * *' 
+    - cron: '0 19 * * *' # 7:00 PM UTC
   workflow_dispatch: 
 
 jobs:
@@ -23,35 +23,28 @@ jobs:
         run: npm install
 
       - name: Run Report Script
-        # THIS IS THE FIX: Passing the token to your NPM script
         env:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
           npm run report-all > report.md
 
-      - name: Post Comment to Discussion
+      - name: Update Existing Discussion Comment
         env:
           GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
+          # This is the GraphQL ID for the specific comment you want to overwrite
+          # You can find this by running the 'gh' command in Step 1
+          COMMENT_ID: "DC_kwDONY9_884A_m_X" 
         run: |
-          # 1. Get the Discussion ID
-          DISCUSSION_ID=$(gh api graphql -f query='
-            query($org: String!, $num: Int!) {
-              organization(login: $org) {
-                repository(name: ".github") {
-                  discussion(number: $num) {
-                    id
-                  }
-                }
-              }
-            }' -f org="Gaia-Digital-Agency" -F num=2 --jq '.data.organization.repository.discussion.id')
-
-          # 2. Post the report.md content
+          echo "Updating the Weekly Project Report comment..."
+          
           gh api graphql -f query='
-            mutation($discussionId: ID!, $body: String!) {
-              addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+            mutation($commentId: ID!, $body: String!) {
+              updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
                 comment {
                   url
                 }
               }
-            }' -f discussionId=$DISCUSSION_ID -F body=@report.md
+            }' -f commentId=$COMMENT_ID -F body=@report.md
+          
+          echo "Report updated successfully!"
