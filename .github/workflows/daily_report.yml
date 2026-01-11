@@ -27,14 +27,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
-          # 1. Run your script
+          # 1. Run the report script
           npm run report-all
           
-          # 2. Find the dated file in the reports/ folder and rename it
-          # This handles files like: reports/all_projects_portfolio_2026-01-11.md
+          # 2. Find and rename the dated report file
           mv reports/all_projects_portfolio_*.md final_report.md
           
-          echo "Found and prepared final_report.md"
+          # 3. Append a team mention and timestamp at the bottom
+          echo -e "\n\n---\n**Last Updated:** $(date)\n**Cc:** @Gaia-Digital-Agency/developers" >> final_report.md
+          
+          echo "Report prepared with team mention."
 
       - name: Update Discussion Comment
         env:
@@ -43,7 +45,7 @@ jobs:
           REPO: ".github"
           DISCUSSION_NUM: 1
         run: |
-          # 1. Fetch Discussion and Comment IDs
+          # Fetch Discussion and Comment IDs
           DISCUSSION_DATA=$(gh api graphql -f query='
             query($org: String!, $repo: String!, $num: Int!) {
               repository(owner: $org, name: $repo) {
@@ -59,7 +61,7 @@ jobs:
           DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
           COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
 
-          # 2. Update existing comment or create a new one
+          # Update existing comment or create a new one
           if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
             echo "Posting new report..."
             gh api graphql -f query='
