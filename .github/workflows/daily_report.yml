@@ -2,8 +2,9 @@ name: Daily Project Report
 
 on:
   schedule:
+    # Runs at 7:00 PM UTC every day
     - cron: '0 19 * * *' 
-  workflow_dispatch: 
+  workflow_dispatch: # Allows you to click "Run workflow" manually
 
 jobs:
   post-report:
@@ -13,7 +14,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -23,57 +24,49 @@ jobs:
         run: npm install
 
       - name: Run Report Script
+        # Pass the credentials your script needs to read the 10 projects
         env:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
           npm run report-all > report.md
 
-      - name: Find and Update Discussion
+      - name: Update Discussion Comment
         env:
           GH_TOKEN: ${{ secrets.REPORT_TOKEN }}
           ORG: "Gaia-Digital-Agency"
-          TITLE: "Web Dev Team Weekly Project Report"
+          REPO: ".github"
+          DISCUSSION_NUM: 1
         run: |
-          echo "Searching for Discussion: $TITLE"
+          echo "Fetching Discussion data for $ORG/$REPO #$DISCUSSION_NUM..."
 
-          # 1. Search for the Discussion ID by Title across the Org
-          # This works even if the discussion is in a hidden .github repo
+          # 1. Fetch Discussion ID and the ID of the first comment if it exists
           DISCUSSION_DATA=$(gh api graphql -f query='
-            query($org: String!, $title: String!) {
-              organization(login: $org) {
-                repository(name: ".github") {
-                  discussions(first: 10) {
-                    nodes {
-                      id
-                      title
-                      comments(first: 1) {
-                        nodes { id }
-                      }
-                    }
+            query($org: String!, $repo: String!, $num: Int!) {
+              repository(owner: $org, name: $repo) {
+                discussion(number: $num) {
+                  id
+                  comments(first: 1) {
+                    nodes { id }
                   }
                 }
               }
-            }' -f org="$ORG" --jq ".data.organization.repository.discussions.nodes[] | select(.title==\"$TITLE\")")
+            }' -f org="$ORG" -f repo="$REPO" -F num=$DISCUSSION_NUM --jq '.data.repository.discussion')
 
           DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
           COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
 
-          if [ -z "$DISCUSSION_ID" ] || [ "$DISCUSSION_ID" == "null" ]; then
-            echo "Error: Could not find Discussion with title '$TITLE'. Please ensure the .github repo exists and contains this discussion."
-            exit 1
-          fi
-
-          if [ -z "$COMMENT_ID" ]; then
-            echo "No comment found. Creating a new one..."
+          # 2. Logic: If no comment exists, create one. If it exists, update it.
+          if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
+            echo "No comment found. Posting new report..."
             gh api graphql -f query='
               mutation($discussionId: ID!, $body: String!) {
                 addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
-                  comment { id }
+                  comment { url }
                 }
               }' -f discussionId=$DISCUSSION_ID -F body=@report.md
           else
-            echo "Updating existing comment (ID: $COMMENT_ID)..."
+            echo "Updating existing report (Comment ID: $COMMENT_ID)..."
             gh api graphql -f query='
               mutation($commentId: ID!, $body: String!) {
                 updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
@@ -81,3 +74,5 @@ jobs:
                 }
               }' -f commentId=$COMMENT_ID -F body=@report.md
           fi
+          
+          echo "Process complete!"
