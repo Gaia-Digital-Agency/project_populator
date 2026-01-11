@@ -1,35 +1,16 @@
-name: Daily Project Report
-
-on:
-  schedule:
-    # Runs at 7:00 PM UTC every day
-    - cron: '0 19 * * *' 
-  workflow_dispatch: # Allows you to click "Run workflow" manually
-
-jobs:
-  post-report:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Report Script
-        # Pass the credentials your script needs to read the 10 projects
+- name: Run Report Script
         env:
           GITHUB_TOKEN: ${{ secrets.REPORT_TOKEN }}
           GITHUB_OWNER: "Gaia-Digital-Agency"
         run: |
-          npm run report-all > report.md
+          # Run the script
+          npm run report-all
+          
+          # Use a 'wildcard' to find the file in the reports folder 
+          # and move it to a standard name 'final_report.md'
+          mv reports/all_projects_portfolio_*.md final_report.md
+          
+          echo "Found and renamed report file."
 
       - name: Update Discussion Comment
         env:
@@ -38,9 +19,7 @@ jobs:
           REPO: ".github"
           DISCUSSION_NUM: 1
         run: |
-          echo "Fetching Discussion data for $ORG/$REPO #$DISCUSSION_NUM..."
-
-          # 1. Fetch Discussion ID and the ID of the first comment if it exists
+          # Fetch IDs
           DISCUSSION_DATA=$(gh api graphql -f query='
             query($org: String!, $repo: String!, $num: Int!) {
               repository(owner: $org, name: $repo) {
@@ -56,23 +35,19 @@ jobs:
           DISCUSSION_ID=$(echo "$DISCUSSION_DATA" | jq -r '.id')
           COMMENT_ID=$(echo "$DISCUSSION_DATA" | jq -r '.comments.nodes[0].id // empty')
 
-          # 2. Logic: If no comment exists, create one. If it exists, update it.
+          # We now use the standard name 'final_report.md'
           if [ -z "$COMMENT_ID" ] || [ "$COMMENT_ID" == "null" ]; then
-            echo "No comment found. Posting new report..."
             gh api graphql -f query='
               mutation($discussionId: ID!, $body: String!) {
                 addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
                   comment { url }
                 }
-              }' -f discussionId=$DISCUSSION_ID -F body=@report.md
+              }' -f discussionId=$DISCUSSION_ID -F body=@final_report.md
           else
-            echo "Updating existing report (Comment ID: $COMMENT_ID)..."
             gh api graphql -f query='
               mutation($commentId: ID!, $body: String!) {
                 updateDiscussionComment(input: {commentId: $commentId, body: $body}) {
                   comment { url }
                 }
-              }' -f commentId=$COMMENT_ID -F body=@report.md
+              }' -f commentId=$COMMENT_ID -F body=@final_report.md
           fi
-          
-          echo "Process complete!"
