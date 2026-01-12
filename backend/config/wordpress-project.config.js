@@ -1,10 +1,10 @@
 // WordPress Development Project Template Configuration
-// Designed for 20-day project cycle (1 month)
+// Designed for 36-day project cycle
 
 export const projectConfig = {
   name: "WordPress Development",
   description: "Complete end-to-end WordPress website development on cPanel/Hostinger",
-  totalDays: 20,
+  totalDays: 36,
   
   // Custom fields for GitHub Project
   customFields: {
@@ -13,22 +13,19 @@ export const projectConfig = {
       type: "SINGLE_SELECT",
       options: ["Backlog", "To Do", "In Progress", "In Review", "Done", "Blocked"]
     },
-    phase: {
+    phaseNumber: {
       name: "Phase",
       type: "SINGLE_SELECT",
-      options: [
-        "1. Discovery",
-        "2. Planning",
-        "3. Design",
-        "4. Environment",
-        "5. Backend",
-        "6. Frontend",
-        "7. Content",
-        "8. Testing",
-        "9. Functionality",
-        "10. User Acceptance",
-        "11. Deployment"
-      ]
+      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
+    },
+    phaseDescription: {
+      name: "Phase Description",
+      type: "SINGLE_SELECT",
+      options: ["Discovery", "Planning", "Design", "Environment", "Backend", "Frontend", "Content", "Testing", "Functionality", "User Acceptance", "Deployment"]
+    },
+    activityNumber: {
+      name: "Activity",
+      type: "NUMBER"
     },
     priority: {
       name: "Priority",
@@ -65,6 +62,7 @@ export const projectConfig = {
       color: "BLUE",
       tasks: [
         {
+          activityNumber: 1,
           title: "Client Onboarding & Kickoff Call",
           description: "Initial client meeting, business objectives documentation, target audience identification, competitor analysis brief",
           percentage: 3,
@@ -79,6 +77,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 2,
           title: "Requirements Gathering",
           description: "Site type determination, feature requirements list, content inventory, third-party integrations identification",
           percentage: 4,
@@ -94,6 +93,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 3,
           title: "Project Planning",
           description: "Milestone definition, resource allocation, communication protocol setup, risk assessment",
           percentage: 3,
@@ -117,6 +117,7 @@ export const projectConfig = {
       color: "PURPLE",
       tasks: [
         {
+          activityNumber: 4,
           title: "Technical Scoping",
           description: "Hosting requirements validation, domain & SSL setup planning, performance requirements, security requirements",
           percentage: 3,
@@ -131,6 +132,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 5,
           title: "Solution Architecture",
           description: "Theme selection, plugin stack decision, database structure planning, URL structure & permalink planning",
           percentage: 3,
@@ -145,6 +147,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 6,
           title: "Technical Spec Docs",
           description: "Sitemap creation, wireframe approval workflow, feature specification sign-off",
           percentage: 2,
@@ -167,6 +170,7 @@ export const projectConfig = {
       color: "GREEN",
       tasks: [
         {
+          activityNumber: 7,
           title: "Visual Identity Setup",
           description: "Color palette selection, typography selection, logo placement, design system/style guide creation",
           percentage: 5,
@@ -180,6 +184,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 8,
           title: "UI/UX Design - All Pages",
           description: "Complete UI/UX design for homepage and all inner pages in Figma/Adobe XD with mobile responsive design specs",
           percentage: 7,
@@ -200,6 +205,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 9,
           title: "Design Review & Approval",
           description: "Client presentation, revision cycles (2 rounds typical), final design sign-off",
           percentage: 3,
@@ -225,6 +231,7 @@ export const projectConfig = {
       color: "ORANGE",
       tasks: [
         {
+          activityNumber: 11,
           title: "Hostinger/cPanel Configuration",
           description: "Domain pointing, DNS configuration, SSL certificate installation, PHP version configuration, MySQL database creation",
           percentage: 2,
@@ -239,6 +246,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 12,
           title: "WordPress/CMS Installation",
           description: "Fresh WP installation via Softaculous, admin credentials setup, staging environment",
           percentage: 2,
@@ -253,6 +261,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 13,
           title: "Development Environment Sync",
           description: "Local dev sync (LocalWP/DevKinsta), backup automation setup",
           percentage: 1,
@@ -274,6 +283,7 @@ export const projectConfig = {
       color: "RED",
       tasks: [
         {
+          activityNumber: 14,
           title: "Theme Setup, Essential Plugin Installation & Configuration",
           description: "Theme installation, child theme creation, essential plugins setup including page builder, SEO, forms, security, performance, backup",
           percentage: 8,
@@ -294,6 +304,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 15,
           title: "Custom Functionality Development",
           description: "Custom post types, custom fields (ACF), shortcodes, custom widgets, API integrations",
           percentage: 6,
@@ -309,6 +320,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 16,
           title: "E-Commerce Setup (WooCommerce)",
           description: "WooCommerce configuration, payment gateway integration, shipping, tax configuration, inventory",
           percentage: 6,
@@ -335,6 +347,7 @@ export const projectConfig = {
       color: "YELLOW",
       tasks: [
         {
+          activityNumber: 18,
           title: "Page Building - Core 7 Secondary Pages",
           description: "Complete page building for homepage, core pages, and all secondary pages including policies, templates, and error pages",
           percentage: 13,
@@ -357,6 +370,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 19,
           title: "Responsive Implementation",
           description: "Tablet breakpoint adjustments, mobile optimization, touch-friendly navigation",
           percentage: 4,
@@ -371,6 +385,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 21,
           title: "Animation & Interactions",
           description: "Scroll animations, hover effects, loading transitions, micro-interactions",
           percentage: 3,
@@ -394,6 +409,7 @@ export const projectConfig = {
       color: "PINK",
       tasks: [
         {
+          activityNumber: 23,
           title: "Content Migration/Entry",
           description: "Text content insertion, image optimization & upload (WebP), media library organization",
           percentage: 3,
@@ -408,6 +424,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 24,
           title: "Content Formatting & SEO",
           description: "Typography consistency, spacing alignment, CTA placement, internal linking, meta data",
           percentage: 2,
@@ -423,6 +440,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 24,
           title: "Quality Assurance",
           description: "Content quality review, proofreading, link validation, visual consistency check",
           percentage: 2,
@@ -447,6 +465,7 @@ export const projectConfig = {
       color: "GRAY",
       tasks: [
         {
+          activityNumber: 25,
           title: "Functional Testing",
           description: "All links verification, form submission testing, e-commerce checkout flow, search functionality",
           percentage: 2,
@@ -462,6 +481,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 26,
           title: "Cross-Browser Testing",
           description: "Chrome, Firefox, Safari, Edge testing on desktop browsers",
           percentage: 2,
@@ -476,6 +496,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 27,
           title: "Mobile Browser Testing",
           description: "Mobile browser testing on iOS and Android devices",
           percentage: 1,
@@ -499,6 +520,7 @@ export const projectConfig = {
       color: "CYAN",
       tasks: [
         {
+          activityNumber: 28,
           title: "Performance Testing",
           description: "Google PageSpeed (target: 90+), GTmetrix analysis, Core Web Vitals optimization",
           percentage: 2,
@@ -514,6 +536,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 28,
           title: "Security Testing",
           description: "Vulnerability scan, login security verification, file permissions, SSL verification",
           percentage: 2,
@@ -528,6 +551,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 28,
           title: "SEO Audit",
           description: "Meta titles/descriptions, heading hierarchy, schema markup, XML sitemap",
           percentage: 1,
@@ -551,6 +575,7 @@ export const projectConfig = {
       color: "BLUE",
       tasks: [
         {
+          activityNumber: 30,
           title: "Client Review Session",
           description: "Guided walkthrough with client, feature demonstration, content accuracy verification",
           percentage: 1,
@@ -566,6 +591,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 31,
           title: "UAT Feedback Implementation",
           description: "Punch list creation, minor revisions execution, final approval sign-off",
           percentage: 1,
@@ -579,6 +605,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 31,
           title: "Handover & Documentation",
           description: "Prepare comprehensive documentation, training materials, and handover package for client",
           percentage: 1,
@@ -603,6 +630,7 @@ export const projectConfig = {
       color: "GREEN",
       tasks: [
         {
+          activityNumber: 34,
           title: "Pre-Launch Checklist",
           description: "Favicon, analytics, search console, social meta tags, robots.txt, htaccess review",
           percentage: 0.7,
@@ -619,6 +647,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 34,
           title: "Go-Live Monitoring",
           description: "Staging to production migration, DNS propagation monitoring, cache management, live verification",
           percentage: 0.7,
@@ -634,6 +663,7 @@ export const projectConfig = {
           ]
         },
         {
+          activityNumber: 34,
           title: "Post-Launch Handover",
           description: "Client handover session, admin training, backup verification, project closure",
           percentage: 0.6,

@@ -456,26 +456,27 @@ class GitHubProjectPopulator {
               name: fieldDef.name
             });
             const fieldId = result.createProjectV2Field.projectV2Field.id;
-            
+
             // Add options
             const options = fieldDef.options.map((opt, i) => ({
               name: opt,
               color: ['GRAY', 'BLUE', 'GREEN', 'YELLOW', 'ORANGE', 'RED', 'PINK', 'PURPLE'][i % 8]
             }));
-            
+
             const updateResult = await graphqlWithAuth(queries.updateSingleSelectField, {
               projectId: this.projectId,
               fieldId: fieldId,
               name: fieldDef.name,
               options: options
             });
-            
+
             this.fields[normalizedKey] = {
               id: fieldId,
               options: Object.fromEntries(
                 updateResult.updateProjectV2Field.projectV2Field.options.map(o => [o.name, o.id])
               )
             };
+            console.log(chalk.green(`  ✓ Created field: ${fieldDef.name} with ${options.length} options`));
           } else if (fieldDef.type === 'NUMBER') {
             const result = await graphqlWithAuth(queries.createNumberField, {
               projectId: this.projectId,
@@ -485,10 +486,13 @@ class GitHubProjectPopulator {
               id: result.createProjectV2Field.projectV2Field.id,
               options: {}
             };
+            console.log(chalk.green(`  ✓ Created field: ${fieldDef.name} (number)`));
           }
         } catch (error) {
           console.log(chalk.yellow(`\n  ⚠️ Field may already exist: ${fieldDef.name}`));
         }
+      } else {
+        console.log(chalk.cyan(`  ↪ Field already exists: ${fieldDef.name}`));
       }
     }
 
@@ -578,20 +582,30 @@ class GitHubProjectPopulator {
   }
 
   async setFieldValues(itemId, task, phase) {
-    // Set Phase
-    const phaseField = this.fields['phase'];
-    if (phaseField && phaseField.options) {
-      const phaseOption = Object.entries(phaseField.options).find(([name]) =>
-        name.toLowerCase().includes(phase.name.toLowerCase().split(' ')[0])
-      );
-      if (phaseOption) {
-        console.log(`Setting phase "${phaseOption[0]}" for item ${itemId}`);
-        await this.updateField(itemId, phaseField.id, { singleSelectOptionId: phaseOption[1] });
-      } else {
-        console.warn(`No matching phase option found for "${phase.name}" on item ${itemId}`);
+    // Set Phase Number (e.g., "1", "2", "3")
+    const phaseNumberField = this.fields['phasenumber'];
+    if (phaseNumberField && phaseNumberField.options) {
+      const phaseNum = phase.id.split('-')[1]; // Extract number from "phase-1"
+      if (phaseNumberField.options[phaseNum]) {
+        console.log(`Setting phase number "${phaseNum}" for item ${itemId}`);
+        await this.updateField(itemId, phaseNumberField.id, { singleSelectOptionId: phaseNumberField.options[phaseNum] });
       }
-    } else {
-      console.warn(`Phase field not configured or has no options for item ${itemId}`);
+    }
+
+    // Set Phase Description (e.g., "Discovery", "Planning")
+    const phaseDescField = this.fields['phasedescription'];
+    if (phaseDescField && phaseDescField.options) {
+      if (phaseDescField.options[phase.name]) {
+        console.log(`Setting phase description "${phase.name}" for item ${itemId}`);
+        await this.updateField(itemId, phaseDescField.id, { singleSelectOptionId: phaseDescField.options[phase.name] });
+      }
+    }
+
+    // Set Activity Number
+    const activityField = this.fields['activitynumber'];
+    if (activityField && task.activityNumber) {
+      console.log(`Setting activity number ${task.activityNumber} for item ${itemId}`);
+      await this.updateField(itemId, activityField.id, { number: task.activityNumber });
     }
 
     // Set Priority
@@ -610,6 +624,13 @@ class GitHubProjectPopulator {
     const timeField = this.fields['time%'];
     if (timeField) {
       await this.updateField(itemId, timeField.id, { number: task.percentage });
+    }
+
+    // Set Estimated Days (auto-calculated from percentage and total project days)
+    const estDaysField = this.fields['est.days'];
+    if (estDaysField) {
+      const estimatedDays = (task.percentage / 100) * projectConfig.totalDays;
+      await this.updateField(itemId, estDaysField.id, { number: parseFloat(estimatedDays.toFixed(2)) });
     }
   }
 
