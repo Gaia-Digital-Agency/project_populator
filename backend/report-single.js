@@ -75,7 +75,7 @@ const projectFieldsFragment = `
     nodes {
       id
       type
-      fieldValues(first: 100) {
+      fieldValues(first: 50) {
         nodes {
           ... on ProjectV2ItemFieldTextValue {
             text
