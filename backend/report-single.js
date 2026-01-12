@@ -201,16 +201,16 @@ function generateMarkdown(project) {
   });
 
   const progressPercent = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
+  const todoCount = totalItems - completedCount - inProgressCount;
 
-  const daysSinceCreated = Math.floor((new Date() - new Date(project.createdAt)) / (1000 * 60 * 60 * 24));
+  const activeDays = Math.floor((new Date(project.updatedAt) - new Date(project.createdAt)) / (1000 * 60 * 60 * 24));
 
   let md = `# Project Report: ${project.title}\n\n`;
   md += `🔗 **[VIEW PROJECT BOARD](${project.url})**\n\n`;
   md += `**Generated:** ${timestamp}\n\n`;
   md += `**Project Number:** #${project.number}\n\n`;
   md += `**Status:** ${project.closed ? '🔴 Closed' : '🟢 Open'}\n\n`;
-  md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()}\n\n`;
-  md += `**Last Updated:** ${new Date(project.updatedAt).toLocaleDateString()} | **Days Since Created:** ${daysSinceCreated}\n\n`;
+  md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()} | **Updated:** ${new Date(project.updatedAt).toLocaleDateString()} | **Active Days:** ${activeDays}\n\n`;
 
   md += `---\n\n`;
 
@@ -219,6 +219,7 @@ function generateMarkdown(project) {
   md += `| Metric | Count | Percentage |\n`;
   md += `|--------|-------|------------|\n`;
   md += `| **Total Tasks** | ${totalItems} | 100% |\n`;
+  md += `| **To Do** | ${todoCount} | ${totalItems > 0 ? Math.round((todoCount / totalItems) * 100) : 0}% |\n`;
   md += `| **Completed** | ${completedCount} | ${progressPercent}% |\n`;
   md += `| **In Progress** | ${inProgressCount} | ${totalItems > 0 ? Math.round((inProgressCount / totalItems) * 100) : 0}% |\n`;
   md += `| **Blocked** | ${blockedCount} | ${totalItems > 0 ? Math.round((blockedCount / totalItems) * 100) : 0}% |\n`;

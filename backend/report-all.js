@@ -254,6 +254,47 @@ function generateMarkdown(projects) {
 
   md += `---\n\n`;
 
+  // Portfolio Health Indicators
+  md += `## 🏥 Portfolio Health Indicators\n\n`;
+
+  const healthMetrics = {
+    blockedProjects: analyses.filter(({ analysis }) => analysis.blocked > 0).length,
+    onTrack: analyses.filter(({ analysis }) => analysis.inProgress > 0 && analysis.blocked === 0).length,
+    notStarted: analyses.filter(({ analysis }) => analysis.backlog === analysis.totalTasks).length,
+    completed: analyses.filter(({ analysis }) => analysis.progressPercent === 100).length
+  };
+
+  md += `| Metric | Count |\n`;
+  md += `|--------|-------|\n`;
+  md += `| ✅ Completed Projects | ${healthMetrics.completed} |\n`;
+  md += `| 🟢 On Track | ${healthMetrics.onTrack} |\n`;
+  md += `| ⏳ Not Started | ${healthMetrics.notStarted} |\n`;
+  if (healthMetrics.blockedProjects > 0) {
+    md += `| ⚠️ **Projects with Blockers** | **${healthMetrics.blockedProjects}** |\n`;
+  }
+  md += `\n`;
+
+  // Risk Assessment
+  const riskyProjects = analyses.filter(({ analysis }) =>
+    analysis.blocked > 0 || (analysis.progressPercent < 30 && analysis.inProgress === 0)
+  );
+
+  if (riskyProjects.length > 0) {
+    md += `### ⚠️ Projects Requiring Attention\n\n`;
+    riskyProjects.forEach(({ project, analysis }) => {
+      md += `- **[#${project.number}](${project.url}) ${project.title}**\n`;
+      if (analysis.blocked > 0) {
+        md += `  - 🚫 ${analysis.blocked} blocked tasks\n`;
+      }
+      if (analysis.progressPercent < 30 && analysis.inProgress === 0) {
+        md += `  - ⚠️ Low progress (${analysis.progressPercent}%) with no active tasks\n`;
+      }
+    });
+    md += `\n`;
+  }
+
+  md += `---\n\n`;
+
   // Detailed Project Breakdowns
   md += `## 📋 Detailed Project Reports\n\n`;
 
@@ -263,18 +304,20 @@ function generateMarkdown(projects) {
     .forEach(({ project, analysis }) => {
       md += `### Project #${project.number}: ${project.title}\n\n`;
       md += `🔗 **[VIEW PROJECT BOARD](${project.url})**\n\n`;
-      md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()} | **Updated:** ${new Date(project.updatedAt).toLocaleDateString()}\n\n`;
+      const activeDays = Math.floor((new Date(project.updatedAt) - new Date(project.createdAt)) / (1000 * 60 * 60 * 24));
+      md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()} | **Updated:** ${new Date(project.updatedAt).toLocaleDateString()} | **Active Days:** ${activeDays}\n\n`;
 
       // Progress Summary
       md += `#### Progress\n\n`;
       const progressBar = '█'.repeat(Math.round(analysis.progressPercent / 2)) + '░'.repeat(50 - Math.round(analysis.progressPercent / 2));
       md += `${progressBar} **${analysis.progressPercent}%**\n\n`;
 
+      const calculatedTodo = analysis.totalTasks - analysis.completed - analysis.inProgress;
       md += `| Status | Count |\n`;
       md += `|--------|-------|\n`;
       md += `| Completed | ${analysis.completed} |\n`;
       md += `| In Progress | ${analysis.inProgress} |\n`;
-      md += `| To Do | ${analysis.todo} |\n`;
+      md += `| To Do | ${calculatedTodo} |\n`;
       md += `| Backlog | ${analysis.backlog} |\n`;
       if (analysis.blocked > 0) {
         md += `| **Blocked** | **${analysis.blocked}** ⚠️ |\n`;
@@ -312,14 +355,6 @@ function generateMarkdown(projects) {
         md += `\n`;
       }
 
-      // Phase Distribution
-      md += `#### Phase Distribution\n\n`;
-      const sortedPhases = Object.entries(analysis.phases).sort((a, b) => b[1] - a[1]);
-      sortedPhases.forEach(([phase, count]) => {
-        md += `- **${phase}:** ${count} tasks\n`;
-      });
-      md += `\n`;
-
       // Priority Breakdown
       md += `#### Priority Breakdown\n\n`;
       const priorityOrder = ['Critical', 'High', 'Medium', 'Low'];
@@ -356,47 +391,6 @@ function generateMarkdown(projects) {
       md += `| #${project.number} | ${project.title} | ${analysis.totalTasks} | ${analysis.completed} | ${new Date(project.updatedAt).toLocaleDateString()} |\n`;
     });
 
-    md += `\n`;
-  }
-
-  md += `---\n\n`;
-
-  // Portfolio Health Indicators
-  md += `## 🏥 Portfolio Health Indicators\n\n`;
-
-  const healthMetrics = {
-    blockedProjects: analyses.filter(({ analysis }) => analysis.blocked > 0).length,
-    onTrack: analyses.filter(({ analysis }) => analysis.inProgress > 0 && analysis.blocked === 0).length,
-    notStarted: analyses.filter(({ analysis }) => analysis.backlog === analysis.totalTasks).length,
-    completed: analyses.filter(({ analysis }) => analysis.progressPercent === 100).length
-  };
-
-  md += `| Metric | Count |\n`;
-  md += `|--------|-------|\n`;
-  md += `| ✅ Completed Projects | ${healthMetrics.completed} |\n`;
-  md += `| 🟢 On Track | ${healthMetrics.onTrack} |\n`;
-  md += `| ⏳ Not Started | ${healthMetrics.notStarted} |\n`;
-  if (healthMetrics.blockedProjects > 0) {
-    md += `| ⚠️ **Projects with Blockers** | **${healthMetrics.blockedProjects}** |\n`;
-  }
-  md += `\n`;
-
-  // Risk Assessment
-  const riskyProjects = analyses.filter(({ analysis }) =>
-    analysis.blocked > 0 || (analysis.progressPercent < 30 && analysis.inProgress === 0)
-  );
-
-  if (riskyProjects.length > 0) {
-    md += `### ⚠️ Projects Requiring Attention\n\n`;
-    riskyProjects.forEach(({ project, analysis }) => {
-      md += `- **[#${project.number}](${project.url}) ${project.title}**\n`;
-      if (analysis.blocked > 0) {
-        md += `  - 🚫 ${analysis.blocked} blocked tasks\n`;
-      }
-      if (analysis.progressPercent < 30 && analysis.inProgress === 0) {
-        md += `  - ⚠️ Low progress (${analysis.progressPercent}%) with no active tasks\n`;
-      }
-    });
     md += `\n`;
   }
 
