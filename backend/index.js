@@ -581,12 +581,17 @@ class GitHubProjectPopulator {
     // Set Phase
     const phaseField = this.fields['phase'];
     if (phaseField && phaseField.options) {
-      const phaseOption = Object.entries(phaseField.options).find(([name]) => 
+      const phaseOption = Object.entries(phaseField.options).find(([name]) =>
         name.toLowerCase().includes(phase.name.toLowerCase().split(' ')[0])
       );
       if (phaseOption) {
+        console.log(`Setting phase "${phaseOption[0]}" for item ${itemId}`);
         await this.updateField(itemId, phaseField.id, { singleSelectOptionId: phaseOption[1] });
+      } else {
+        console.warn(`No matching phase option found for "${phase.name}" on item ${itemId}`);
       }
+    } else {
+      console.warn(`Phase field not configured or has no options for item ${itemId}`);
     }
 
     // Set Priority
@@ -617,6 +622,7 @@ class GitHubProjectPopulator {
         value: value
       });
     } catch (error) {
+      console.error(`Failed to update field ${fieldId} for item ${itemId}:`, error.message);
       // Non-critical error, continue
     }
   }
