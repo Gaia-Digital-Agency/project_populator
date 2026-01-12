@@ -96,9 +96,8 @@ github-project-populator/
 │   ├── guide_make_report.md        # Reporting guide
 │   └── [other workflow guides]
 ├── reports/                         # Generated markdown reports
-├── .claude/                         # Claude Code configuration
-│   ├── settings.local.json         # Tool permissions
-│   └── PROJECT_CONTEXT.md          # Project overview
+├── .claude/                         # Claude Code AI assistant configuration
+│   └── PROJECT_CONTEXT.md          # Project overview for AI context
 ├── .env.example                     # Configuration template
 ├── .env                             # Your config (gitignored)
 ├── package.json
@@ -826,10 +825,13 @@ Generate comprehensive markdown reports for your projects with built-in commands
 **Single Project Report:**
 ```bash
 PROJECT_NUMBER=1 npm run report-single
+# or by name:
+PROJECT_NAME="Client Alpha" npm run report-single
 ```
 
 Generates detailed report including:
-- 📊 Progress summary with completion percentages
+- 📊 Progress summary with completion percentages and **To Do** count
+- 📈 Active Days calculation (Updated - Created dates)
 - 📋 Status breakdown (Backlog, To Do, In Progress, Done, Blocked)
 - 🎯 Phase breakdown with task lists
 - ⚡ Priority breakdown
@@ -843,13 +845,23 @@ npm run report-all
 Generates comprehensive portfolio overview including:
 - 📊 Executive summary across all projects
 - 🟢 Active projects table with progress bars
-- 📋 Detailed breakdown for each project
-- 🏥 Portfolio health indicators
-- ⚠️ Risk assessment
+- 🏥 **Portfolio health indicators** (risk assessment and project status)
+- 📋 Detailed breakdown for each project with:
+  - Active Days tracking
+  - Correct To Do calculation (Total - Completed - In Progress)
+  - Progress visualization
+  - In Progress and Blocked items
+- ⚠️ Projects requiring attention
+- 📊 Closed projects summary
+
+**Recent Enhancements (January 2026):**
+- Added To Do row to Progress Summary tables
+- Active Days calculation in all reports
+- Improved To Do calculation accuracy
+- Reorganized portfolio report for better readability
+- Removed redundant Phase Distribution from individual sections
 
 **Output:** Reports saved to `reports/` directory as timestamped markdown files.
-
-**Full Guide:** See [REPORTING_GUIDE.md](REPORTING_GUIDE.md) for complete documentation.
 
 ---
 
@@ -1035,7 +1047,22 @@ MIT License - Customize freely for your agency.
 
 ## Author
 
-Built for Gaida WordPress development workflow management.
+Built for Gaia Digital Agency WordPress development workflow management.
 
-**Version:** 1.0.0  
-**Last Updated:** January 2026
+**Version:** 1.1.0
+**Last Updated:** January 12, 2026
+
+## Changelog
+
+### Version 1.1.0 (January 12, 2026)
+- Enhanced reporting system with To Do counts and Active Days tracking
+- Improved portfolio report organization with health indicators moved up
+- Fixed To Do calculation logic across all reports
+- Removed redundant Phase Distribution from individual project sections
+- Added .claude/ directory for AI assistant context
+
+### Version 1.0.0
+- Initial release with complete WordPress project template
+- Single and portfolio report generation
+- Batch project creation support
+- 11-phase workflow with 33 activities
