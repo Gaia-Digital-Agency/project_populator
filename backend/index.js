@@ -315,9 +315,11 @@ class GitHubProjectPopulator {
       console.log(chalk.green.bold('\n✅ Project population complete!'));
       console.log(chalk.cyan(`\nView your project at: https://github.com/users/${config.owner}/projects/${this.projectNumber}\n`));
 
-      console.log(chalk.yellow.bold('⚠️  Next Step: Configure View 1 Columns'));
-      console.log(chalk.yellow('Go to your project → View 1 → Click the "..." menu → Fields'));
-      console.log(chalk.yellow('Show these columns: Phase, Phase Description, Title, Developer, Status, Est. Days\n'));
+      console.log(chalk.yellow.bold('⚠️  Next Step: Configure View Columns'));
+      console.log(chalk.yellow('In your project board:'));
+      console.log(chalk.yellow('1. Click the "+" button at the right edge of the column headers'));
+      console.log(chalk.yellow('2. Select fields to show: Phase, Phase Description, Developer, Status, Est. Days'));
+      console.log(chalk.yellow('3. Or click any column header dropdown (▼) to hide/show fields\n'));
     } catch (error) {
       console.error(chalk.red('\n❌ Error:'), error.message);
       if (error.errors) {

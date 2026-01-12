@@ -761,6 +761,32 @@ npm run report-all                        # All projects
 CLIENT_NAME="Test Client" npm run dry-run
 ```
 
+### Configuring Your Project View
+
+After creating a project, you'll want to customize which columns are visible in your board view:
+
+**Method 1: Add columns using the + button**
+1. Open your project board
+2. Look for the **"+" button** at the right edge of your column headers
+3. Click it to see all available fields
+4. Select the fields you want to display: Phase, Phase Description, Developer, Status, Est. Days
+
+**Method 2: Use column header dropdowns**
+1. Click any column header to see a dropdown menu (▼)
+2. Select "Hide field" or "Show field" options
+3. Customize which fields appear in your view
+
+**Recommended columns for WordPress projects:**
+- Title (always visible)
+- Status
+- Phase
+- Phase Description
+- Developer
+- Priority
+- Est. Days
+
+**Pro tip:** You can create multiple views with different column configurations for different team members (e.g., "Developer View" vs "Manager View").
+
 ---
 
 ## Daily Operations
