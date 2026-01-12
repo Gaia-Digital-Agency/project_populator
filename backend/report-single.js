@@ -202,13 +202,15 @@ function generateMarkdown(project) {
 
   const progressPercent = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
 
+  const daysSinceCreated = Math.floor((new Date() - new Date(project.createdAt)) / (1000 * 60 * 60 * 24));
+
   let md = `# Project Report: ${project.title}\n\n`;
   md += `🔗 **[VIEW PROJECT BOARD](${project.url})**\n\n`;
   md += `**Generated:** ${timestamp}\n\n`;
   md += `**Project Number:** #${project.number}\n\n`;
   md += `**Status:** ${project.closed ? '🔴 Closed' : '🟢 Open'}\n\n`;
   md += `**Created:** ${new Date(project.createdAt).toLocaleDateString()}\n\n`;
-  md += `**Last Updated:** ${new Date(project.updatedAt).toLocaleDateString()}\n\n`;
+  md += `**Last Updated:** ${new Date(project.updatedAt).toLocaleDateString()} | **Days Since Created:** ${daysSinceCreated}\n\n`;
 
   md += `---\n\n`;
 
@@ -281,31 +283,6 @@ function generateMarkdown(project) {
       });
       md += `\n`;
     }
-  });
-
-  md += `---\n\n`;
-
-  // Phase Breakdown
-  md += `## 🎯 Phase Breakdown\n\n`;
-  const phases = Object.keys(byPhase).sort();
-  phases.forEach(phase => {
-    const phaseTasks = byPhase[phase];
-    const phaseCompleted = phaseTasks.filter(item => getFieldValue(item, 'Status') === 'Done').length;
-    const phasePercent = phaseTasks.length > 0 ? Math.round((phaseCompleted / phaseTasks.length) * 100) : 0;
-
-    md += `### ${phase}\n\n`;
-    md += `**Progress:** ${phaseCompleted}/${phaseTasks.length} tasks (${phasePercent}%)\n\n`;
-
-    phaseTasks.forEach(item => {
-      const issue = item.content;
-      const status = getFieldValue(item, 'Status') || 'Unknown';
-      const priority = getFieldValue(item, 'Priority') || 'N/A';
-      const statusIcon = status === 'Done' ? '✅' : status === 'In Progress' ? '🔄' : status === 'Blocked' ? '🚫' : '⏳';
-
-      md += `- ${statusIcon} **[#${issue.number}](${issue.url})** ${issue.title}\n`;
-      md += `  - Status: ${status} | Priority: ${priority}\n`;
-    });
-    md += `\n`;
   });
 
   md += `---\n\n`;

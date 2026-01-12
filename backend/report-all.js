@@ -243,7 +243,7 @@ function generateMarkdown(projects) {
       .sort((a, b) => b.analysis.progressPercent - a.analysis.progressPercent)
       .forEach(({ project, analysis }) => {
         const progressBar = '█'.repeat(Math.round(analysis.progressPercent / 10)) + '░'.repeat(10 - Math.round(analysis.progressPercent / 10));
-        const todoCount = `${analysis.todo}/${analysis.totalTasks}`;
+        const todoCount = analysis.totalTasks - analysis.completed - analysis.inProgress;
         const doneCount = `${analysis.completed}/${analysis.totalTasks}`;
 
         md += `| **[#${project.number}](${project.url})** | ${project.title} | ${progressBar} ${analysis.progressPercent}% | ${analysis.primaryDeveloper} | ${todoCount} | ${doneCount} |\n`;
