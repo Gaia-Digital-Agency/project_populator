@@ -78,6 +78,12 @@ const projectsFragment = `
               state
               createdAt
               updatedAt
+              assignees(first: 10) {
+                nodes {
+                  login
+                  name
+                }
+              }
             }
           }
         }
@@ -130,7 +136,15 @@ function analyzeProject(project) {
     const status = getFieldValue(item, 'Status') || 'Unknown';
     const phase = getFieldValue(item, 'Phase') || 'Unassigned';
     const priority = getFieldValue(item, 'Priority') || 'Unknown';
-    const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+
+    // Check custom Developer field first, then fall back to GitHub Assignees
+    let developer = getFieldValue(item, 'Developer');
+    if (!developer && item.content && item.content.assignees && item.content.assignees.nodes.length > 0) {
+      // Use first assignee's name or login
+      const assignee = item.content.assignees.nodes[0];
+      developer = assignee.name || assignee.login;
+    }
+    developer = developer || 'Unassigned';
 
     if (status === 'Done') completed++;
     else if (status === 'In Progress') {
@@ -271,7 +285,15 @@ function generateMarkdown(projects) {
         md += `#### 🔄 Currently In Progress\n\n`;
         analysis.inProgressItems.forEach(item => {
           const phase = getFieldValue(item, 'Phase') || 'No Phase';
-          const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+
+          // Check custom Developer field first, then fall back to GitHub Assignees
+          let developer = getFieldValue(item, 'Developer');
+          if (!developer && item.content && item.content.assignees && item.content.assignees.nodes.length > 0) {
+            const assignee = item.content.assignees.nodes[0];
+            developer = assignee.name || assignee.login;
+          }
+          developer = developer || 'Unassigned';
+
           const priority = getFieldValue(item, 'Priority') || '';
           const priorityIcon = priority === 'Critical' ? '🔴' : priority === 'High' ? '🟠' : priority === 'Medium' ? '🟡' : '🟢';
           md += `- ${priorityIcon} [#${item.content.number}](${item.content.url}) ${item.content.title} *(${phase} - ${developer})*\n`;

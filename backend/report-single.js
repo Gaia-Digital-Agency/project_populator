@@ -119,6 +119,7 @@ const projectFieldsFragment = `
           assignees(first: 5) {
             nodes {
               login
+              name
             }
           }
         }
@@ -175,7 +176,14 @@ function generateMarkdown(project) {
     const status = getFieldValue(item, 'Status') || 'Unknown';
     const phase = getFieldValue(item, 'Phase') || 'Unassigned';
     const priority = getFieldValue(item, 'Priority') || 'Unknown';
-    const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+
+    // Check custom Developer field first, then fall back to GitHub Assignees
+    let developer = getFieldValue(item, 'Developer');
+    if (!developer && item.content && item.content.assignees && item.content.assignees.nodes.length > 0) {
+      const assignee = item.content.assignees.nodes[0];
+      developer = assignee.name || assignee.login;
+    }
+    developer = developer || 'Unassigned';
 
     if (!byStatus[status]) byStatus[status] = [];
     if (!byPhase[phase]) byPhase[phase] = [];
@@ -228,7 +236,15 @@ function generateMarkdown(project) {
     byStatus['In Progress'].forEach(item => {
       const issue = item.content;
       const phase = getFieldValue(item, 'Phase') || 'No Phase';
-      const developer = getFieldValue(item, 'Developer') || 'Unassigned';
+
+      // Check custom Developer field first, then fall back to GitHub Assignees
+      let developer = getFieldValue(item, 'Developer');
+      if (!developer && item.content && item.content.assignees && item.content.assignees.nodes.length > 0) {
+        const assignee = item.content.assignees.nodes[0];
+        developer = assignee.name || assignee.login;
+      }
+      developer = developer || 'Unassigned';
+
       const priority = getFieldValue(item, 'Priority') || 'N/A';
       const priorityIcon = priority === 'Critical' ? '🔴' : priority === 'High' ? '🟠' : priority === 'Medium' ? '🟡' : '🟢';
       md += `- ${priorityIcon} **[#${issue.number}](${issue.url})** ${issue.title}\n`;
