@@ -151,6 +151,7 @@ function analyzeProject(project) {
 
   const progressPercent = totalTasks > 0 ? Math.round((completed / totalTasks) * 100) : 0;
   const currentPhase = Object.keys(phases).find(p => phases[p] === Math.max(...Object.values(phases))) || 'N/A';
+  const primaryDeveloper = Object.keys(developers).find(d => developers[d] === Math.max(...Object.values(developers))) || 'Unassigned';
 
   return {
     totalTasks,
@@ -161,6 +162,7 @@ function analyzeProject(project) {
     backlog,
     progressPercent,
     currentPhase,
+    primaryDeveloper,
     phases,
     priorities,
     developers,
@@ -219,8 +221,8 @@ function generateMarkdown(projects) {
   // Active Projects Overview
   if (activeProjects.length > 0) {
     md += `## 🟢 Active Projects Overview\n\n`;
-    md += `| # | Project Name | Tasks | Progress | Phase | Status |\n`;
-    md += `|---|--------------|-------|----------|-------|--------|\n`;
+    md += `| # | Project Name | Tasks | Progress | Developer | Status |\n`;
+    md += `|---|--------------|-------|----------|-----------|--------|\n`;
 
     analyses
       .filter(({ project }) => !project.closed)
@@ -229,7 +231,7 @@ function generateMarkdown(projects) {
         const statusIcon = analysis.blocked > 0 ? '🚫' : analysis.inProgress > 0 ? '🔄' : analysis.progressPercent === 100 ? '✅' : '⏳';
         const progressBar = '█'.repeat(Math.round(analysis.progressPercent / 10)) + '░'.repeat(10 - Math.round(analysis.progressPercent / 10));
 
-        md += `| **[#${project.number}](${project.url})** | ${project.title} | ${analysis.totalTasks} | ${progressBar} ${analysis.progressPercent}% | ${analysis.currentPhase} | ${statusIcon} |\n`;
+        md += `| **[#${project.number}](${project.url})** | ${project.title} | ${analysis.totalTasks} | ${progressBar} ${analysis.progressPercent}% | ${analysis.primaryDeveloper} | ${statusIcon} |\n`;
       });
 
     md += `\n`;

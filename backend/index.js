@@ -311,9 +311,13 @@ class GitHubProjectPopulator {
       await this.setupLabels();
       await this.setupProject();
       await this.createTasks();
-      
+
       console.log(chalk.green.bold('\n✅ Project population complete!'));
       console.log(chalk.cyan(`\nView your project at: https://github.com/users/${config.owner}/projects/${this.projectNumber}\n`));
+
+      console.log(chalk.yellow.bold('⚠️  Next Step: Configure View 1 Columns'));
+      console.log(chalk.yellow('Go to your project → View 1 → Click the "..." menu → Fields'));
+      console.log(chalk.yellow('Show these columns: Phase, Phase Description, Title, Developer, Status, Est. Days\n'));
     } catch (error) {
       console.error(chalk.red('\n❌ Error:'), error.message);
       if (error.errors) {
