@@ -235,17 +235,18 @@ function generateMarkdown(projects) {
   // Active Projects Overview
   if (activeProjects.length > 0) {
     md += `## 🟢 Active Projects Overview\n\n`;
-    md += `| # | Project Name | Tasks | Progress | Developer | Status |\n`;
-    md += `|---|--------------|-------|----------|-----------|--------|\n`;
+    md += `| # | Project Name | Progress | Developer | To Do | Done |\n`;
+    md += `|---|--------------|----------|-----------|-------|------|\n`;
 
     analyses
       .filter(({ project }) => !project.closed)
       .sort((a, b) => b.analysis.progressPercent - a.analysis.progressPercent)
       .forEach(({ project, analysis }) => {
-        const statusIcon = analysis.blocked > 0 ? '🚫' : analysis.inProgress > 0 ? '🔄' : analysis.progressPercent === 100 ? '✅' : '⏳';
         const progressBar = '█'.repeat(Math.round(analysis.progressPercent / 10)) + '░'.repeat(10 - Math.round(analysis.progressPercent / 10));
+        const todoCount = `${analysis.todo}/${analysis.totalTasks}`;
+        const doneCount = `${analysis.completed}/${analysis.totalTasks}`;
 
-        md += `| **[#${project.number}](${project.url})** | ${project.title} | ${analysis.totalTasks} | ${progressBar} ${analysis.progressPercent}% | ${analysis.primaryDeveloper} | ${statusIcon} |\n`;
+        md += `| **[#${project.number}](${project.url})** | ${project.title} | ${progressBar} ${analysis.progressPercent}% | ${analysis.primaryDeveloper} | ${todoCount} | ${doneCount} |\n`;
       });
 
     md += `\n`;
