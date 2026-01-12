@@ -29,10 +29,11 @@ jobs:
         run: |
           # Run the script
           npm run report-all
-          
-          # Move dated report to standard filename
-          mv reports/all_projects_portfolio_*.md final_report.md
-          
+
+          # Find the most recent report and move it to standard filename
+          LATEST_REPORT=$(ls -t reports/all_projects_portfolio_*.md | head -n 1)
+          cp "$LATEST_REPORT" final_report.md
+
           # Append team mention and timestamp
           echo -e "\n\n---\n**Last Updated:** $(date)\n**Cc:** @Gaia-Digital-Agency/developers" >> final_report.md
 
