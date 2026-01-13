@@ -54,8 +54,15 @@ function sleep(ms) {
 }
 
 function isRateLimitError(error) {
-  const message = (error && error.message) ? error.message : '';
-  return message.toLowerCase().includes('rate limit');
+  const message = (error?.message || '').toLowerCase();
+  // This will catch both primary and secondary rate limit errors.
+  return message.includes('rate limit') || message.includes('abuse detection');
+}
+
+function isSecondaryRateLimitError(error) {
+  const message = (error?.message || '').toLowerCase();
+  // Secondary rate limit messages often contain specific phrases.
+  return message.includes('secondary rate limit') || message.includes('abuse detection');
 }
 
 async function getRateLimit() {
@@ -181,10 +188,22 @@ async function main() {
         spinner.succeed(`Created: ${client.name} → Project #${project.number}`);
       } catch (error) {
         if (isRateLimitError(error)) {
-          spinner.warn(`Rate limit hit while creating: ${client.name}`);
+          if (isSecondaryRateLimitError(error)) {
+            spinner.warn(`Secondary rate limit hit. Pausing...`);
+            // For secondary limits, a fixed, shorter wait is often better
+            // than waiting for the primary limit reset.
+            await sleep(30000); // Wait 30 seconds
+          } else {
+            spinner.warn(`Primary rate limit hit while creating: ${client.name}`);
+            try {
+              const rateLimit = await getRateLimit();
+              await waitForRateLimit(rateLimit.resetAt);
+            } catch (rateLimitError) {
+              spinner.warn(`Could not fetch rate limit. Waiting 60s.`);
+              await sleep(60000);
+            }
+          }
           try {
-            const rateLimit = await getRateLimit();
-            await waitForRateLimit(rateLimit.resetAt);
             spinner = ora(`Retrying: ${client.name}`).start();
             const project = await createProject(ownerId, client.name);
             createdProjects.push({
